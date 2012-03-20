@@ -1,0 +1,9 @@
+## Mini Manual GIT for WIN , v 0.1
+
+
+SW Install from :
+http://code.google.com/p/msysgit/downloads/detail?name=Git-1.7.9-preview20120201.exe&can=2&q=
+
+Config from :
+http://help.github.com/win-set-up-git/
+- Selecionar SSH
