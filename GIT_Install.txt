@@ -1,0 +1,6 @@
+Puxar SW :
+http://code.google.com/p/msysgit/downloads/detail?name=Git-1.7.9-preview20120201.exe&can=2&q=
+
+Seguir "manual" :
+http://help.github.com/win-set-up-git/
+- Escolher SSH
