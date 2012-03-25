@@ -33,7 +33,7 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
-$n  = optional_param('n', 0, PARAM_INT);  // docente instance ID - it should be named as the first character of the module
+$n  = optional_param('d', 0, PARAM_INT);  // docente instance ID - it should be named as the first character of the module
 
 if ($id) {
     $cm         = get_coursemodule_from_id('docente', $id, 0, false, MUST_EXIST);

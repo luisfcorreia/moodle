@@ -33,7 +33,7 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
-$n  = optional_param('n', 0, PARAM_INT);  // sumarios instance ID - it should be named as the first character of the module
+$n  = optional_param('s', 0, PARAM_INT);  // sumarios instance ID - it should be named as the first character of the module
 
 if ($id) {
     $cm         = get_coursemodule_from_id('sumarios', $id, 0, false, MUST_EXIST);
@@ -72,7 +72,7 @@ if ($sumarios->intro) { // Conditions to show the intro can change to look for o
 }
 
 // Replace the following lines with you own code
-echo $OUTPUT->heading('Yay! It works!');
+echo $OUTPUT->heading('Sumarios RULEZ!');
 
 // Finish the page
 echo $OUTPUT->footer();
