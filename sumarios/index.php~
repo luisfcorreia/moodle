@@ -48,7 +48,7 @@ $PAGE->set_context($coursecontext);
 echo $OUTPUT->header();
 
 if (! $sumarioss = get_all_instances_in_course('sumarios', $course)) {
-    notice(get_string('no	arioss', 'sumarios'), new moodle_url('/course/view.php', array('id' => $course->id)));
+    notice(get_string('nosumarioss', 'sumarios'), new moodle_url('/course/view.php', array('id' => $course->id)));
 }
 
 if ($course->format == 'weeks') {
