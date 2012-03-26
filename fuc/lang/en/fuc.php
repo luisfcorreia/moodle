@@ -17,21 +17,25 @@
 
 
 /**
- * Defines the version of docente
+ * English strings for fuc
  *
- * This code fragment is called by moodle_needs_upgrading() and
- * /admin/index.php
+ * You can have a rather longer description of the file as well,
+ * if you like, and it can span multiple lines.
  *
  * @package    mod
- * @subpackage docente
+ * @subpackage fuc
  * @copyright  2011 Your Name
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$module->version   = 0;               // If version == 0 then module will not be installed
-//$module->version   = 2010032200;      // The current module version (Date: YYYYMMDDXX)
-$module->requires  = 2010031900;      // Requires this Moodle version
-$module->cron      = 0;               // Period for cron to check this module (secs)
-$module->component = 'mod_docente'; // To check on upgrade, that module sits in correct place
+$string['modulename'] = 'fuc';
+$string['modulenameplural'] = 'fucs';
+$string['modulename_help'] = 'Use the fuc module for... | The fuc module allows...';
+$string['fucfieldset'] = 'Custom example fieldset';
+$string['fucname'] = 'fuc name';
+$string['fucname_help'] = 'This is the content of the help tooltip associated with the fucname field. Markdown syntax is supported.';
+$string['fuc'] = 'fuc';
+$string['pluginadministration'] = 'fuc administration';
+$string['pluginname'] = 'fuc';

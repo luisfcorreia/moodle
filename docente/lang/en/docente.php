@@ -17,10 +17,10 @@
 
 
 /**
- * Defines the version of docente
+ * English strings for docente
  *
- * This code fragment is called by moodle_needs_upgrading() and
- * /admin/index.php
+ * You can have a rather longer description of the file as well,
+ * if you like, and it can span multiple lines.
  *
  * @package    mod
  * @subpackage docente
@@ -30,8 +30,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$module->version   = 0;               // If version == 0 then module will not be installed
-//$module->version   = 2010032200;      // The current module version (Date: YYYYMMDDXX)
-$module->requires  = 2010031900;      // Requires this Moodle version
-$module->cron      = 0;               // Period for cron to check this module (secs)
-$module->component = 'mod_docente'; // To check on upgrade, that module sits in correct place
+$string['modulename'] = 'docente';
+$string['modulenameplural'] = 'docentes';
+$string['modulename_help'] = 'Use the docente module for... | The docente module allows...';
+$string['docentefieldset'] = 'Custom example fieldset';
+$string['docentename'] = 'docente name';
+$string['docentename_help'] = 'This is the content of the help tooltip associated with the docentename field. Markdown syntax is supported.';
+$string['docente'] = 'docente';
+$string['pluginadministration'] = 'docente administration';
+$string['pluginname'] = 'docente';
