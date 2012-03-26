@@ -72,5 +72,8 @@ if ($sumarios->intro) { // Conditions to show the intro can change to look for o
 // Replace the following lines with you own code
 echo $OUTPUT->heading('Sumarios RULEZ!');
 
+echo $OUTPUT->heading('Sumarios RULEZ!');
+
+
 // Finish the page
 echo $OUTPUT->footer();

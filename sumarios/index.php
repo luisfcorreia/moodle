@@ -74,6 +74,10 @@ foreach ($sumarioss as $sumarios) {
             format_string($sumarios->name, true));
     }
 
+    $table->data[] = array($sumarios->sumario_texto, $link);
+
+
+
     if ($course->format == 'weeks' or $course->format == 'topics') {
         $table->data[] = array($sumarios->section, $link);
     } else {
