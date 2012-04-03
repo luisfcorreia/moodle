@@ -46,7 +46,8 @@ if ($id) {
 }
 
 require_login($course, true, $cm);
-$context = get_context_instance(CONTEXT_MODULE, $cm->id);
+// $context = get_context_instance(CONTEXT_MODULE, $cm->id);
+$context = context_module::instance_by_id($cm->id);
 
 add_to_log($course->id, 'sumarios', 'view', "view.php?id={$cm->id}", $sumarios->name, $cm->id);
 
