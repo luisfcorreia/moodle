@@ -30,12 +30,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['modulename'] = 'sumarios';
+$string['modulename'] = 'Sumarios';
 $string['modulenameplural'] = 'sumarios';
 $string['modulename_help'] = 'Use the sumarios module for... | The sumarios module allows...';
 $string['sumariosfieldset'] = 'Custom example fieldset';
-$string['sumariosname'] = 'sumarios name';
-$string['sumariosname_help'] = 'This is the content of the help tooltip associated with the sumariosname field. Markdown syntax is supported.';
-$string['sumarios'] = 'sumarios';
+$string['sumariosname'] = 'Lesson summary Title';
+$string['sumariosname_help'] = 'Describe the lesson summary title';
+$string['sumarios'] = 'Sumarios';
 $string['pluginadministration'] = 'sumarios administration';
 $string['pluginname'] = 'sumarios';
+$string['sumariostexto'] = 'Lesson summary text';
+$string['sumarioscabecalho'] = 'Summary for this lesson:';
+

@@ -58,16 +58,10 @@ class mod_sumarios_mod_form extends moodleform_mod {
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('name', 'sumariosname', 'sumarios');
 
-        // Adding the standard "intro" and "introformat" fields
-        $this->add_intro_editor();
-
         //-------------------------------------------------------------------------------
-        // Adding the rest of sumarios settings, spreeading all them into this fieldset
-        // or adding more fieldsets ('header' elements) if needed for better logic
-        $mform->addElement('static', 'label1', 'sumariossetting1', 'Your sumarios fields go here. Replace me!');
-
-        $mform->addElement('header', 'sumariosfieldset', get_string('sumariosfieldset', 'sumarios'));
-        $mform->addElement('static', 'label2', 'sumariossetting2', 'Your sumarios fields go here. Replace me!');
+        $mform->addElement('editor', 'longtext', get_string('sumariostexto', 'sumarios'));
+				$mform->setType('longtext', PARAM_RAW);
+				$mform->addRule('longtext', get_string('required'), 'required', null, 'client');
 
         //-------------------------------------------------------------------------------
         // add standard elements, common to all modules

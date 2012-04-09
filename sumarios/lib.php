@@ -32,9 +32,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-/** example constant */
-//define('NEWMODULE_ULTIMATE_ANSWER', 42);
-
 ////////////////////////////////////////////////////////////////////////////////
 // Moodle core API                                                            //
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +45,6 @@ defined('MOODLE_INTERNAL') || die();
  */
 function sumarios_supports($feature) {
     switch($feature) {
-        case FEATURE_MOD_INTRO:         return true;
         default:                        return null;
     }
 }
@@ -69,10 +65,13 @@ function sumarios_add_instance(stdClass $sumarios, mod_sumarios_mod_form $mform 
     global $DB;
 
     $sumarios->timecreated = time();
-
-    # You may have to add extra stuff in here #
+//		$sumarios->longtext = $mform->longtext;
+		    
+//		$sumarios->id = $DB->insert_record('sumarios', $sumarios);
+//    return $sumarios->id;
 
     return $DB->insert_record('sumarios', $sumarios);
+
 }
 
 /**
@@ -113,8 +112,6 @@ function sumarios_delete_instance($id) {
     if (! $sumarios = $DB->get_record('sumarios', array('id' => $id))) {
         return false;
     }
-
-    # Delete any dependent records here #
 
     $DB->delete_records('sumarios', array('id' => $sumarios->id));
 
@@ -198,6 +195,9 @@ function sumarios_print_recent_mod_activity($activity, $courseid, $detail, $modn
  * @todo Finish documenting this function
  **/
 function sumarios_cron () {
+
+// TODO enviar cenas para a BD central
+
     return true;
 }
 
@@ -243,14 +243,7 @@ function sumarios_get_extra_capabilities() {
  * @return bool true if the scale is used by the given sumarios instance
  */
 function sumarios_scale_used($sumariosid, $scaleid) {
-    global $DB;
-
-    /** @example */
-    if ($scaleid and $DB->record_exists('sumarios', array('id' => $sumariosid, 'grade' => -$scaleid))) {
-        return true;
-    } else {
-        return false;
-    }
+    return false;
 }
 
 /**
@@ -262,14 +255,7 @@ function sumarios_scale_used($sumariosid, $scaleid) {
  * @return boolean true if the scale is used by any sumarios instance
  */
 function sumarios_scale_used_anywhere($scaleid) {
-    global $DB;
-
-    /** @example */
-    if ($scaleid and $DB->record_exists('sumarios', array('grade' => -$scaleid))) {
-        return true;
-    } else {
-        return false;
-    }
+    return false;
 }
 
 /**
@@ -281,17 +267,7 @@ function sumarios_scale_used_anywhere($scaleid) {
  * @return void
  */
 function sumarios_grade_item_update(stdClass $sumarios) {
-    global $CFG;
-    require_once($CFG->libdir.'/gradelib.php');
-
-    /** @example */
-    $item = array();
-    $item['itemname'] = clean_param($sumarios->name, PARAM_NOTAGS);
-    $item['gradetype'] = GRADE_TYPE_VALUE;
-    $item['grademax']  = $sumarios->grade;
-    $item['grademin']  = 0;
-
-    grade_update('mod/sumarios', $sumarios->course, 'mod', 'sumarios', $sumarios->id, 0, null, $item);
+    return false;
 }
 
 /**
@@ -304,13 +280,7 @@ function sumarios_grade_item_update(stdClass $sumarios) {
  * @return void
  */
 function sumarios_update_grades(stdClass $sumarios, $userid = 0) {
-    global $CFG, $DB;
-    require_once($CFG->libdir.'/gradelib.php');
-
-    /** @example */
-    $grades = array(); // populate array of grade objects indexed by userid
-
-    grade_update('mod/sumarios', $sumarios->course, 'mod', 'sumarios', $sumarios->id, 0, $grades);
+    return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
