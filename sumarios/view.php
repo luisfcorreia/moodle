@@ -74,7 +74,7 @@ echo $OUTPUT->header();
 echo $OUTPUT->container(get_string('sumarioscabecalho', 'sumarios'));
 echo $OUTPUT->container('<br />');
 
-echo $OUTPUT->container($sumarios->longtext);
+echo $OUTPUT->container($sumarios->texto);
 
 // Finish the page
 echo $OUTPUT->footer();

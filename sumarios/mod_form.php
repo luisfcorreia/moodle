@@ -59,9 +59,9 @@ class mod_sumarios_mod_form extends moodleform_mod {
         $mform->addHelpButton('name', 'sumariosname', 'sumarios');
 
         //-------------------------------------------------------------------------------
-        $mform->addElement('editor', 'longtext', get_string('sumariostexto', 'sumarios'));
-				$mform->setType('longtext', PARAM_RAW);
-				$mform->addRule('longtext', get_string('required'), 'required', null, 'client');
+        $mform->addElement('editor', 'texto', get_string('sumariostexto', 'sumarios'));
+        $mform->setType('texto', PARAM_RAW);
+        $mform->addRule('texto', get_string('required'), 'required', null, 'client');
 
         //-------------------------------------------------------------------------------
         // add standard elements, common to all modules
