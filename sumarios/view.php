@@ -70,12 +70,13 @@ $PAGE->set_context($context);
 // Output starts here
 echo $OUTPUT->header();
 
-// Replace the following lines with you own code
-echo $OUTPUT->container(get_string('sumarioscabecalho', 'sumarios'));
-echo $OUTPUT->container($sumarios->name);
-echo $OUTPUT->container('<br />');
 
-echo $OUTPUT->container($sumarios->texto);
+echo $OUTPUT->box($sumarios->name);
+echo $OUTPUT->box_start();
+echo $sumarios->texto;
+echo $OUTPUT->box_end();
+
 
 // Finish the page
 echo $OUTPUT->footer();
+
