@@ -73,7 +73,7 @@ echo $OUTPUT->header();
 
 echo $OUTPUT->box($sumarios->name);
 echo $OUTPUT->box_start();
-echo $sumarios->texto;
+echo str_replace("\n","<br />",$sumarios->texto);
 echo $OUTPUT->box_end();
 
 
