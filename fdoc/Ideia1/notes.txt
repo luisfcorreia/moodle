@@ -1,0 +1,26 @@
+//-------------------------------------------------------------------------------
+    /// Adding the rest of fdoc settings, spreeading all them into this fieldset
+    /// or adding more fieldsets ('header' elements) if needed for better logic
+        $mform->addElement('static', 'label1', 'FDocsetting1', 'Your fdoc fields go here. Replace me!');
+
+        $mform->addElement('header', 'FDocfieldset', get_string('FDocfieldset', 'fdoc'));
+        $mform->addElement('static', 'label2', 'FDocsetting2', 'Your fdoc fields go here. Replace me!');
+
+		
+		$nform->addElement('header', 'basic', get_string('resume:form_header','blocks/resume'));
+        
+        $nform->addElement('textarea', 'resume_career_objective', get_string('resume:form_objective','blocks/resume'));
+        $nform->addElement('textarea', 'resume_hobbies', get_string('resume:form_hobbies','blocks/resume'));
+        $nform->addElement('textarea', 'resume_skills', get_string('resume:form_skills','blocks/resume'));
+        $nform->addElement('textarea', 'resume_references', get_string('resume:form_references','blocks/resume'));
+         	 	 	
+		$nform->addElement('header', 'basic', get_string('resume:form_header_options','blocks/resume'));
+
+		$nform->addElement('checkbox', 'finalize', get_string('resume:form_finalize','blocks/resume'));
+        
+        $nform->addElement('hidden','id',0);
+        $nform->addElement('hidden','userid',0);
+        		
+        $this->add_action_buttons($cancel = true, $submitlabel=get_string('resume:form_submit_button','blocks/resume'));
+ 
+//-------------------------------------------------------------------------------
