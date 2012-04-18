@@ -1,0 +1,13 @@
+GIT
+
+inicial:
+git clone endereco_remoto
+
+
+Em git-bash na pasta "moodle"
+
+$ git add *
+$ git commit -m "mensagem que vai parar ao log do github"
+
+Para enviar:
+$ git push -u origin master
