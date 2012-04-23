@@ -1,12 +1,12 @@
 <?php
 
-$string['fuc'] = 'fuc';
+$string['fdoc'] = 'fdoc';
 
-$string['modulename'] = 'fuc';
-$string['modulenameplural'] = 'fucS';
+$string['modulename'] = 'fdoc';
+$string['modulenameplural'] = 'fdocS';
 
-$string['fucfieldset'] = 'Custom example fieldset';
-$string['fucintro'] = 'fuc Intro';
-$string['fucname'] = 'fuc Name';
+$string['fdocfieldset'] = 'Custom example fieldset';
+$string['fdocintro'] = 'fdoc Intro';
+$string['fdocname'] = 'fdoc Name';
 
 ?>

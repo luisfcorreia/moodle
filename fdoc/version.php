@@ -1,15 +1,8 @@
-<?php // $Id: version.php,v 1.5.2.2 2009/03/19 12:23:11 mudrd8mz Exp $
+<?php
+   // $plugin->version = 2012031700;  // YYYYMMDDHH (year, month, day, 24-hr time)
+   // $plugin->requires = 2011120502.05; // YYYYMMDDHH (This is the release version for Moodle 2.0)
 
-/**
- * Code fragment to define the version of fdoc
- * This fragment is called by moodle_needs_upgrading() and /admin/index.php
- *
- * @author  Your Name <your@email.address>
- * @version $Id: version.php,v 1.5.2.2 2009/03/19 12:23:11 mudrd8mz Exp $
- * @package mod/fdoc
- */
+   $module->version  = 2012032701;  // The current module version (Date: YYYYMMDDXX)
+   $module->cron     = 0;           // Period for cron to check this module (secs)
 
-$module->version  = 2012032701;  // The current module version (Date: YYYYMMDDXX)
-$module->cron     = 0;           // Period for cron to check this module (secs)
-
-?>
+	?>
