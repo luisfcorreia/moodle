@@ -42,5 +42,9 @@ $string['pluginname'] = 'sumarios';
 $string['sumariostexto'] = 'Lesson summary text';
 $string['sumarioscabecalho'] = 'Summary for this lesson:';
 $string['sumariosdata'] = 'Date this lesson was presented';
-$string['sumariosdatabase'] = 'Define the database server type';
+$string['sumarios_db_type'] = 'Choose database type';
+$string['sumarios_db_server'] = 'Define database server';
+$string['sumarios_db_user'] = 'Define database username';
+$string['sumarios_db_pass'] = 'Define database password';
+$string['sumarios_db_table'] = 'Define database table';
 
