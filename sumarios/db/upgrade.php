@@ -45,40 +45,20 @@ function xmldb_sumarios_upgrade($oldversion) {
     $dbman = $DB->get_manager(); // loads ddl manager and xmldb classes
 
     // First example, some fields were added to install.xml on 2007/04/01
-    if ($oldversion < 2) {
+    if ($oldversion < 2012052401) {
 
         // Define field course to be added to sumarios
         $table = new xmldb_table('sumarios');
-        $field = new xmldb_field('course', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '0', 'id');
+        $field = new xmldb_field('timeclass', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '0', 'timemodified');
 
         // Add field course
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
 
-        // Define field intro to be added to sumarios
-        $table = new xmldb_table('sumarios');
-        $field = new xmldb_field('name', XMLDB_TYPE_TEXT, 'medium', null, null, null, null,'name');
-
-        // Add field intro
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // Define field introformat to be added to sumarios
-        $table = new xmldb_table('sumarios');
-        $field = new xmldb_field('texto', XMLDB_TYPE_TEXT, 'big',  null, null, null, null,'texto');
-
-        // Add field introformat
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-
-
         // Once we reach this point, we can store the new version and consider the module
         // upgraded to the version 2007040100 so the next time this block is skipped
-        upgrade_mod_savepoint(true, 2012040901, 'sumarios');
+        upgrade_mod_savepoint(true, 2012052401, 'sumarios');
     }
 
     // Final return of upgrade result (true, all went good) to Moodle.
