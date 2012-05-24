@@ -196,14 +196,17 @@ function sumarios_print_recent_mod_activity($activity, $courseid, $detail, $modn
  **/
 function sumarios_cron () {
 
-// TODO enviar cenas para a BD central
-
     global $CFG, $DB;
-    mtrace('Antes do if!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-    if (isset($CFG->sumarios_db_type)) {
+		mtrace('Starting sumarios cron job...');
 
-    	mtrace("Aqui sumarios!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+    if (isset($CFG->sumarios_db_type)) {
+			// TODO enviar cenas para a BD central
+    	mtrace("ó para mim a fingir que trabalho!");
+
     }
+    
+		mtrace('Finished sumarios cron job...');
     return true;
 }
 
