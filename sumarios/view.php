@@ -70,8 +70,7 @@ $PAGE->set_context($context);
 // Output starts here
 echo $OUTPUT->header();
 
-
-echo $OUTPUT->box($sumarios->name);
+echo $OUTPUT->box(userdate($sumarios->timeclass) . " - " . $sumarios->name);
 echo $OUTPUT->box_start();
 echo str_replace("\n","<br />",$sumarios->texto);
 echo $OUTPUT->box_end();
