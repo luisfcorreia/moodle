@@ -197,6 +197,7 @@ function sumarios_print_recent_mod_activity($activity, $courseid, $detail, $modn
 function sumarios_cron () {
 
     global $CFG, $DB;
+		mtrace('');
 		mtrace('Starting sumarios cron job...');
 
 
