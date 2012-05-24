@@ -202,7 +202,7 @@ function sumarios_cron () {
 
     if (isset($CFG->sumarios_db_type)) {
 			// TODO enviar cenas para a BD central
-    	mtrace("ó para mim a fingir que trabalho!");
+    	mtrace('ó para mim a fingir que trabalho!');
 
     }
     
