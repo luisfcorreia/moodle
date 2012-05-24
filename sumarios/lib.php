@@ -198,6 +198,12 @@ function sumarios_cron () {
 
 // TODO enviar cenas para a BD central
 
+    global $CFG, $DB;
+    mtrace('Antes do if!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    if (isset($CFG->sumarios_db_type)) {
+
+    	mtrace("Aqui sumarios!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    }
     return true;
 }
 
