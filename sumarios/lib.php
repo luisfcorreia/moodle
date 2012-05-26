@@ -186,6 +186,67 @@ function sumarios_get_recent_mod_activity(&$activities, &$index, $timestart, $co
 function sumarios_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
 }
 
+
+/**
+ * Return list of database engines
+
+ * @return databases
+ */
+function sumarios_get_database_list() {
+
+
+}
+
+/**
+ * Return list of database engines supported
+
+ * @return databases
+ */
+function sumarios_database_list() {
+
+
+    $databases = array('mysqli' => moodle_database::get_driver_instance('mysqli', 'native'),
+                       'pgsql'  => moodle_database::get_driver_instance('pgsql',  'native'),
+                       'oci'    => moodle_database::get_driver_instance('oci',    'native'),
+                       'sqlsrv' => moodle_database::get_driver_instance('sqlsrv', 'native'), // MS SQL*Server PHP driver
+                       'mssql'  => moodle_database::get_driver_instance('mssql',  'native'), // FreeTDS driver
+                      );
+
+    $disabled = array();
+    $options = array();
+    
+    foreach ($databases as $type=>$database) {
+        if ($database->driver_installed() !== true) {
+          mtrace('<option value="'.s($type).'" class="notavailable">'.$database->get_name().'</option>');
+ //         $options[](s($type).'" class="notavailable">'.$database->get_name()
+        } else {
+	        mtrace('<option value="'.s($type).'">'.$database->get_name().'</option>');
+        }
+    }
+
+
+		return $databases;
+}
+
+
+/**
+ * Tests external database connection
+
+ * @return boolean
+ */
+function sumarios_test_external_database() {
+
+    global $CFG, $DB;
+    
+		mtrace('antes do new coiso');
+
+		sumarios_database_list();
+		      
+  	mtrace('depois do new coiso');
+    
+    return true;
+}
+
 /**
  * Function to be run periodically according to the moodle cron
  * This function searches for things that need to be done, such
@@ -200,6 +261,7 @@ function sumarios_cron () {
 		mtrace('');
 		mtrace('Starting sumarios cron job...');
 
+		sumarios_test_external_database();
 
     if (isset($CFG->sumarios_db_type)) {
 			// TODO enviar cenas para a BD central
@@ -210,6 +272,7 @@ function sumarios_cron () {
 		mtrace('Finished sumarios cron job...');
     return true;
 }
+
 
 /**
  * Returns an array of users who are participanting in this sumarios
