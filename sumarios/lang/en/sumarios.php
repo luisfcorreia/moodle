@@ -47,4 +47,5 @@ $string['sumarios_db_server'] = 'Define database server';
 $string['sumarios_db_user'] = 'Define database username';
 $string['sumarios_db_pass'] = 'Define database password';
 $string['sumarios_db_table'] = 'Define database table';
+$string['sumarios_cron'] = 'Define export periodicity';
 

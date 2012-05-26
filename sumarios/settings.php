@@ -11,6 +11,7 @@ if ($ADMIN->fulltree) {
 		$CFG->sumarios_db_user = "";
 		$CFG->sumarios_db_pass = "";
 		$CFG->sumarios_db_table = "";
+		$module->cron=0;
     }
 
     $options = array(SUMARIOS_MYSQL => 'Oracle MySQL',
@@ -20,7 +21,7 @@ if ($ADMIN->fulltree) {
                        get_string('sumarios_db_type', 'sumarios'), SUMARIOS_MYSQL, $options));
                                               
 		$settings->add(new admin_setting_configtext('sumarios_db_server', get_string('sumarios_db_server', 'sumarios'),
-											 get_string('sumarios_db_server', 'sumarios'), ""));
+											 get_string('sumarios_db_server', 'sumarios'), "" , PARAM_HOST));
 											 
 		$settings->add(new admin_setting_configtext('sumarios_db_user', get_string('sumarios_db_user', 'sumarios'),
 											 get_string('sumarios_db_user', 'sumarios'), ""));
@@ -31,4 +32,8 @@ if ($ADMIN->fulltree) {
 		$settings->add(new admin_setting_configtext('sumarios_db_table', get_string('sumarios_db_table', 'sumarios'),
 											 get_string('sumarios_db_table', 'sumarios'), ""));
 
+//		$module->add(new admin_setting_configtext( 'cron' , get_string('sumarios_cron', 'sumarios'),
+//											 get_string('sumarios_cron', 'sumarios'), $module->cron , PARAM_INT ));
+
+		// $module->cron=$CFG->sumarios_cron;
 }
