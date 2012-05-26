@@ -62,11 +62,11 @@ class mod_sumarios_mod_form extends moodleform_mod {
         //-------------------------------------------------------------------------------
 //        $mform->addElement('textarea', 'texto', get_string('sumariostexto', 'sumarios'),array('cols'=>48, 'rows'=>6));
 //        $mform->setType('texto', PARAM_TEXT);
-//        $mform->addRule('texto', get_string('required'), 'required', null, 'client');
 
         $mform->addElement('editor', 'texto', get_string('sumariostexto', 'sumarios'));
         // $mform->addHelpButton('texto', 'sumariostexto');
         $mform->setType('texto', PARAM_RAW);
+        $mform->addRule('texto', get_string('required'), 'required', null, 'client');
         
         //-------------------------------------------------------------------------------
         $mform->addElement('date_selector', 'timeclass', get_string('sumariosdata','sumarios'));

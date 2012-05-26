@@ -186,15 +186,55 @@ function sumarios_get_recent_mod_activity(&$activities, &$index, $timestart, $co
 function sumarios_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
 }
 
+/**
+ * Return array with possible database engines
+
+ * @return databases
+ */
+function sumarios_get_db_list() {
+
+    $db = array('mysqli' => moodle_database::get_driver_instance('mysqli', 'native'),
+                'pgsql'  => moodle_database::get_driver_instance('pgsql',  'native'),
+                'oci'    => moodle_database::get_driver_instance('oci',    'native'),
+                'sqlsrv' => moodle_database::get_driver_instance('sqlsrv', 'native'), // MS SQL*Server PHP driver
+                'mssql'  => moodle_database::get_driver_instance('mssql',  'native'), // FreeTDS driver
+                );
+		return $db;
+}
 
 /**
  * Return list of database engines
 
  * @return databases
  */
-function sumarios_get_database_list() {
+function sumarios_get_database_available() {
 
+    $dbs = sumarios_get_db_list();
+    $opt = array();   
+    
+    foreach ($dbs as $type=>$database) {
+        if ($database->driver_installed() !== true) {} else {
+          $opt[] = $type . ' - ' . $database->get_name();
+        }
+    }
+		return $opt;
+}
 
+/**
+ * Return list of database engines
+
+ * @return databases
+ */
+function sumarios_get_database_not_available() {
+
+    $databases = sumarios_get_db_list();
+    $opt = array();   
+    foreach ($databases as $type=>$database) {
+        if ($database->driver_installed() !== true) {
+          $opt[] = $type . ' - ' . $database->get_name();
+        }
+    }
+		return $opt;
 }
 
 /**
@@ -204,27 +244,11 @@ function sumarios_get_database_list() {
  */
 function sumarios_database_list() {
 
-
-    $databases = array('mysqli' => moodle_database::get_driver_instance('mysqli', 'native'),
-                       'pgsql'  => moodle_database::get_driver_instance('pgsql',  'native'),
-                       'oci'    => moodle_database::get_driver_instance('oci',    'native'),
-                       'sqlsrv' => moodle_database::get_driver_instance('sqlsrv', 'native'), // MS SQL*Server PHP driver
-                       'mssql'  => moodle_database::get_driver_instance('mssql',  'native'), // FreeTDS driver
-                      );
-
-    $disabled = array();
-    $options = array();
-    
-    foreach ($databases as $type=>$database) {
-        if ($database->driver_installed() !== true) {
-          mtrace('<option value="'.s($type).'" class="notavailable">'.$database->get_name().'</option>');
- //         $options[](s($type).'" class="notavailable">'.$database->get_name()
-        } else {
-	        mtrace('<option value="'.s($type).'">'.$database->get_name().'</option>');
-        }
+/*
+    foreach ($blah as sumarios_get_database_available()) {
+          mtrace($blah);
     }
-
-
+*/
 		return $databases;
 }
 
@@ -257,7 +281,7 @@ function sumarios_test_external_database() {
  **/
 function sumarios_cron () {
 
-    global $CFG, $DB;
+    global $CFG;
 		mtrace('');
 		mtrace('Starting sumarios cron job...');
 

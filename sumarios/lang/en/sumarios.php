@@ -42,10 +42,18 @@ $string['pluginname'] = 'sumarios';
 $string['sumariostexto'] = 'Lesson summary text';
 $string['sumarioscabecalho'] = 'Summary for this lesson:';
 $string['sumariosdata'] = 'Date this lesson was presented';
-$string['sumarios_db_type'] = 'Choose database type';
-$string['sumarios_db_server'] = 'Define database server';
-$string['sumarios_db_user'] = 'Define database username';
-$string['sumarios_db_pass'] = 'Define database password';
-$string['sumarios_db_table'] = 'Define database table';
-$string['sumarios_cron'] = 'Define export periodicity';
+
+$string['sumarios_db_type'] = 'Server type';
+$string['sumarios_db_server'] = 'Server';
+$string['sumarios_db_user'] = 'Username';
+$string['sumarios_db_pass'] = 'Password';
+$string['sumarios_db_table'] = 'Table';
+$string['sumarios_cron'] = 'Export frequency';
+
+$string['sumarios_db_type_text'] = 'Choose database type';
+$string['sumarios_db_server_text'] = 'Define database server';
+$string['sumarios_db_user_text'] = 'Define database username';
+$string['sumarios_db_pass_text'] = 'Define database password';
+$string['sumarios_db_table_text'] = 'Define database table';
+$string['sumarios_cron_text'] = 'Define export frequency';
 
