@@ -15,7 +15,7 @@ if ($ADMIN->fulltree) {
 			$module->cron=0;
     }
 
-    $options = sumarios_get_database_available();                     
+    $options = sumarios_get_database_available();
                      
     $settings->add(new admin_setting_configselect('sumarios_db_type', 
       get_string('sumarios_db_type', 'sumarios'),
