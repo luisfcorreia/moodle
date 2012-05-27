@@ -20,7 +20,7 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect('sumarios_db_type', 
       get_string('sumarios_db_type', 'sumarios'),
       get_string('sumarios_db_type_text', 'sumarios'), 
-      SUMARIOS_MYSQL, 
+      'SUMARIOS_MYSQL', 
       $options)
       );
                                               
