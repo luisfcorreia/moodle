@@ -8,6 +8,7 @@ if ($ADMIN->fulltree) {
     if (!isset($CFG->sumarios_db_type)) {
 			$CFG->sumarios_db_type = "mysqli";
 			$CFG->sumarios_db_server = "";
+			$CFG->sumarios_db_database = "";
 			$CFG->sumarios_db_user = "";
 			$CFG->sumarios_db_pass = "";
 			$CFG->sumarios_db_table = "";
