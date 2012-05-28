@@ -197,7 +197,7 @@ function sumarios_get_db_list() {
                 'pgsql'  => moodle_database::get_driver_instance('pgsql',  'native'),
                 'oci'    => moodle_database::get_driver_instance('oci',    'native'),
                 'sqlsrv' => moodle_database::get_driver_instance('sqlsrv', 'native'), // MS SQL*Server PHP driver
-                'mssql'  => moodle_database::get_driver_instance('mssql',  'native'), // FreeTDS driver
+                'mssql'  => moodle_database::get_driver_instance('mssql',  'native') // FreeTDS driver
                 );
 		return $db;
 }
@@ -285,11 +285,7 @@ function sumarios_test_external_database() {
 function sumarios_cron () {
 
     global $CFG;
-		mtrace('');'mysqli' => moodle_database::get_driver_instance('mysqli', 'native'),
-                'pgsql'  => moodle_database::get_driver_instance('pgsql',  'native'),
-                'oci'    => moodle_database::get_driver_instance('oci',    'native'),
-                'sqlsrv' => moodle_database::get_driver_instance('sqlsrv', 'native'), // MS SQL*Server PHP driver
-                'mssql'  => moodle_database::get_driver_instance('mssql',  'native'), // FreeTDS driver
+		mtrace('');
 		mtrace('Starting sumarios cron job...');
 
 		sumarios_test_external_database();
