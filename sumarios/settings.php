@@ -31,6 +31,12 @@ if ($ADMIN->fulltree) {
 			PARAM_HOST)
 			);
 											 
+		$settings->add(new admin_setting_configtext('sumarios_db_database', 
+		  get_string('sumarios_db_database', 'sumarios'),
+			get_string('sumarios_db_database_text', 'sumarios'), 
+			"")
+			);
+						 
 		$settings->add(new admin_setting_configtext('sumarios_db_user', 
 		  get_string('sumarios_db_user', 'sumarios'),
 			get_string('sumarios_db_user_text', 'sumarios'), 

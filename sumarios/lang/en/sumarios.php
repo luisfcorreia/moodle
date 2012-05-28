@@ -45,6 +45,7 @@ $string['sumariosdata'] = 'Date this lesson was presented';
 
 $string['sumarios_db_type'] = 'Server type';
 $string['sumarios_db_server'] = 'Server';
+$string['sumarios_db_database'] = 'Database';
 $string['sumarios_db_user'] = 'Username';
 $string['sumarios_db_pass'] = 'Password';
 $string['sumarios_db_table'] = 'Table';
@@ -52,6 +53,7 @@ $string['sumarios_cron'] = 'Export frequency';
 
 $string['sumarios_db_type_text'] = 'Choose database type';
 $string['sumarios_db_server_text'] = 'Define database server';
+$string['sumarios_db_database_text'] = 'Define which database';
 $string['sumarios_db_user_text'] = 'Define database username';
 $string['sumarios_db_pass_text'] = 'Define database password';
 $string['sumarios_db_table_text'] = 'Define database table';
