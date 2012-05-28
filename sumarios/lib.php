@@ -214,45 +214,13 @@ function sumarios_get_database_available() {
     
     foreach ($dbs as $type=>$database) {
         if ($database->driver_installed() !== true) {
-          $opt[] = 'not available! ' . $type . ' - ' . $database->get_name();
+          $opt[] = 'DATABASE ENGINE NOT AVAILABLE! ' . $type . ' - ' . $database->get_name();
 
 		} else {
           $opt[] = $type . ' - ' . $database->get_name();
         }
     }
 		return $opt;
-}
-
-/**
- * Return list of database engines
-
- * @return databases
- */
-function sumarios_get_database_not_available() {
-
-    $databases = sumarios_get_db_list();
-    $opt = array();   
-    foreach ($databases as $type=>$database) {
-        if ($database->driver_installed() !== true) {
-          $opt[] = $type . ' - ' . $database->get_name();
-        }
-    }
-		return $opt;
-}
-
-/**
- * Return list of database engines supported
-
- * @return databases
- */
-function sumarios_database_list() {
-
-/*
-    foreach ($blah as sumarios_get_database_available()) {
-          mtrace($blah);
-    }
-*/
-		return $databases;
 }
 
 
