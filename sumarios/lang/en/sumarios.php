@@ -59,3 +59,4 @@ $string['sumarios_db_pass_text'] = 'Define database password';
 $string['sumarios_db_table_text'] = 'Define database table';
 $string['sumarios_cron_text'] = 'Define export frequency';
 
+
