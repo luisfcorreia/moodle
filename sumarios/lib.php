@@ -235,6 +235,48 @@ function sumarios_test_external_database() {
     
 		mtrace('antes do new coiso');
 
+    switch ($CFG->sumarios_db_type){
+       case 0 : // mysqli
+					mtrace("Ora temos uma bd mysql.");
+					$link = mysql_connect($CFG->sumarios_db_server, $CFG->sumarios_db_user, $CFG->sumarios_db_pass);
+					if (!$link) {
+							die('Could not connect: ' . mysql_error());
+					}
+					mtrace("Connected successfully");
+					mysql_close($link);
+					break;
+
+       case 1 : // pgsql
+					mtrace("Ora temos uma bd pgsql.");
+					break;
+
+       case 2 : // oci
+					mtrace("Ora temos uma bd oracle.");
+					break;
+
+       case 3 : // sqlsrv
+					mtrace("Ora temos uma bd sqlserver (nativo).");
+					$link = sqlsrv_connect($this->dbhost, array('UID' => 'db_user', 'PWD' => 'db_password'));
+					if($link === FALSE) {
+							echo 'Could not connect';
+							die('Could not connect: ' . sqlsrv_errors(SQLSRV_ERR_ALL));
+					}
+					echo 'Successful connection';
+					sqlsrv_close($link);
+					break;
+
+       case 4 : // mssqls
+					mtrace("Ora temos uma bd mssql.");
+					break;
+      
+
+    }
+
+
+
+
+
+
 		      
   	mtrace('depois do new coiso');
     
