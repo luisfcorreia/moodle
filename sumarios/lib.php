@@ -235,7 +235,6 @@ function sumarios_test_external_database() {
     
 		mtrace('antes do new coiso');
 
-		sumarios_database_list();
 		      
   	mtrace('depois do new coiso');
     
