@@ -6,7 +6,7 @@ if ($ADMIN->fulltree) {
     require_once($CFG->dirroot.'/mod/sumarios/lib.php');
 
     if (!isset($CFG->sumarios_db_type)) {
-			$CFG->sumarios_db_type = "mysqli";
+			$CFG->sumarios_db_type = "0";
 			$CFG->sumarios_db_server = "";
 			$CFG->sumarios_db_database = "";
 			$CFG->sumarios_db_user = "";
