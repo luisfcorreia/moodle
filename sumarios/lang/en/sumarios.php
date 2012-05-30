@@ -40,6 +40,7 @@ $string['sumarios'] = 'Sumarios';
 $string['pluginadministration'] = 'sumarios administration';
 $string['pluginname'] = 'sumarios';
 $string['sumariostexto'] = 'Lesson summary text';
+$string['sumariostexto_help'] = 'Lesson summary text';
 $string['sumarioscabecalho'] = 'Summary for this lesson:';
 $string['sumariosdata'] = 'Date this lesson was presented';
 

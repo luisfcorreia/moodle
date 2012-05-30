@@ -223,7 +223,6 @@ function sumarios_get_database_available() {
 		return $opt;
 }
 
-
 /**
  * Tests external database connection
 
@@ -231,56 +230,25 @@ function sumarios_get_database_available() {
  */
 function sumarios_test_external_database() {
 
-    global $CFG, $DB;
-    
-		mtrace('antes do new coiso');
+    global $CFG;
 
-    switch ($CFG->sumarios_db_type){
-       case 0 : // mysqli
-					mtrace("Ora temos uma bd mysql.");
-					$link = mysql_connect($CFG->sumarios_db_server, $CFG->sumarios_db_user, $CFG->sumarios_db_pass);
-					if (!$link) {
-							die('Could not connect: ' . mysql_error());
-					}
-					mtrace("Connected successfully");
-					mysql_close($link);
-					break;
+		$databases = array(0=>'mysqli',1=>'pgsql',2=>'oci',3=>'sqlsrv',4=>'mssql');
+		$result = false;
 
-       case 1 : // pgsql
-					mtrace("Ora temos uma bd pgsql.");
-					break;
+    if (!$ourDB = moodle_database::get_driver_instance($databases[$CFG->sumarios_db_type], 'native')) {
+      mtrace("Unknown driver " . $databases[$CFG->sumarios_db_type]);
+			$result = false;
+    } else {
 
-       case 2 : // oci
-					mtrace("Ora temos uma bd oracle.");
-					break;
-
-       case 3 : // sqlsrv
-					mtrace("Ora temos uma bd sqlserver (nativo).");
-					$link = sqlsrv_connect($this->dbhost, array('UID' => 'db_user', 'PWD' => 'db_password'));
-					if($link === FALSE) {
-							echo 'Could not connect';
-							die('Could not connect: ' . sqlsrv_errors(SQLSRV_ERR_ALL));
-					}
-					echo 'Successful connection';
-					sqlsrv_close($link);
-					break;
-
-       case 4 : // mssqls
-					mtrace("Ora temos uma bd mssql.");
-					break;
-      
-
-    }
-
-
-
-
-
-
-		      
-  	mtrace('depois do new coiso');
-    
-    return true;
+		  try {
+		      $result = $ourDB->connect($CFG->sumarios_db_server, $CFG->sumarios_db_user, 
+												$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, '', $CFG->dboptions);
+					
+				} catch (moodle_exception $e) {
+				   // mtrace("moodle_exception" . $e);
+				}
+		}
+    return $result;
 }
 
 /**
@@ -295,17 +263,21 @@ function sumarios_cron () {
 
     global $CFG;
 		mtrace('');
-		mtrace('Starting sumarios cron job...');
-
-		sumarios_test_external_database();
+		mtrace('Starting sumarios cron job..............................................................................................');
 
     if (isset($CFG->sumarios_db_type)) {
-			// TODO enviar cenas para a BD central
-    	mtrace('ó para mim a fingir que trabalho!');
 
-    }
-    
-		mtrace('Finished sumarios cron job...');
+		  if (!sumarios_test_external_database()) {
+		  	mtrace('Connect to external database failed!!!');
+
+		  } else {
+
+				// TODO enviar cenas para a BD central
+		  	mtrace('ó para mim a fingir que trabalho!');
+		  }
+		}
+
+		mtrace('Finished sumarios cron job..............................................................................................');
     return true;
 }
 
