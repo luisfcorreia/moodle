@@ -271,7 +271,7 @@ function sumarios_process_to_external_database() {
 				   mtrace("moodle_exception" . $e);
 				}
 
-			$rs = $DB->get_recordset($DB->sumarios, array $conditions=null, $sort='', $fields='*');
+			$rs = $DB->get_recordset($DB->sumarios, array($conditions=null), $sort='', $fields='*');
 			if ($rs->valid()) {
 				foreach ($rs as $record) {
 					// Do whatever you want with this record
