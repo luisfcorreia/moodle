@@ -194,18 +194,12 @@ function sumarios_print_recent_mod_activity($activity, $courseid, $detail, $modn
 function sumarios_get_values() {
 
 	global $CFG;
+	$result = false;	
 
-	$result = false;
-
-	if (!$CFG->sumarios_db_type == "" && 
-			!$CFG->sumarios_db_server == "" &&
-			!$CFG->sumarios_db_user == "" &&
-			!$CFG->sumarios_db_pass == "" &&
-			!$CFG->sumarios_db_table == "" &&
-			!$CFG->sumarios_db_database == "" ) {
-		$result= true;
+	if ($CFG->sumarios_db_type <> "" && $CFG->sumarios_db_user <> "" && $CFG->sumarios_db_pass <> "" &&
+		  $CFG->sumarios_db_table <> "" && $CFG->sumarios_db_server <> "" && $CFG->sumarios_db_database <> "" ) {
+				$result= true;
 	}
-
 	return $result;
 }
 
@@ -271,14 +265,23 @@ function sumarios_process_to_external_database() {
 				   mtrace("moodle_exception" . $e);
 				}
 
-			$rs = $DB->get_recordset($DB->sumarios, array($conditions=null), $sort='', $fields='*');
-			if ($rs->valid()) {
-				foreach ($rs as $record) {
-					// Do whatever you want with this record
-					mtrace($rs->name);
-			}
-			$rs->close(); // Don't forget to close the recordset!
+			// loop through all sumarios records
+		  $instances = $DB->get_recordset('sumarios');
+		  foreach ($instances as $instance) {
+
+			//	id 	course 	name 	texto 	timecreated 	timemodified 	timeclass 
+				$data = new stdClass();
+				$data->name   = $instance->name;
+				$data->texto  = $instance->texto;
+      	$data->course = $instance->course;
+      	$data->timecreated  =$instance->timecreated;
+      	$data->timemodified =$instance->timemodified;
+      	$data->timeclass    = $instance->timeclass;
+        $ourDB->insert_record('export', $data, false);
+		  }
+		  $instances->close();
 		}
+
 		if ($result) $ourDB->dispose();
 
     return $result;

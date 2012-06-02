@@ -6,7 +6,7 @@ if ($ADMIN->fulltree) {
     require_once($CFG->dirroot.'/mod/sumarios/lib.php');
 
     if (!isset($CFG->sumarios_db_type)) {
-			$CFG->sumarios_db_type = "0";
+			$CFG->sumarios_db_type = "";
 			$CFG->sumarios_db_server = "";
 			$CFG->sumarios_db_database = "";
 			$CFG->sumarios_db_user = "";
@@ -21,7 +21,7 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect('sumarios_db_type', 
       get_string('sumarios_db_type', 'sumarios'),
       get_string('sumarios_db_type_text', 'sumarios'), 
-      'SUMARIOS_MYSQL', 
+      0, 
       $options)
       );
                                               
