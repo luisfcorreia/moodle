@@ -1,1 +1,0 @@
-Command line scripts can not be executed from the web interface
