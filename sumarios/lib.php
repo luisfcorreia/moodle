@@ -291,30 +291,39 @@ function sumarios_process_to_external_database() {
 		      $result = $ourDB->connect($CFG->sumarios_db_server, $CFG->sumarios_db_user, 
 										$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, '', $CFG->dboptions);
 					
-				} catch (moodle_exception $e) {
+			} catch (moodle_exception $e) {
 				   mtrace(get_string('sumarios_cron_07','sumarios') . $e);
-				}
+			}
 
 			// loop through all sumarios records
 		  $instances = $DB->get_recordset('sumarios');
 		  foreach ($instances as $instance) {
 
-			//	id 	course 	name 	texto 	timecreated 	timemodified 	timeclass 
-				$data = new stdClass();
-				$data->name         = $instance->name;
-				$data->texto        = $instance->texto;
-      	$data->course       = $instance->course;
-      	$data->timecreated  = $instance->timecreated;
-      	$data->timemodified = $instance->timemodified;
-      	$data->timeclass    = $instance->timeclass;
-      	 	
-      	// insert this record into external DB
-        $id = $ourDB->insert_record($CFG->sumarios_db_table, $data, false);
-				mtrace(get_string('sumarios_cron_04','sumarios') . " " . $id);
+				// search if we have already exported this record
+				$sql = 'SELECT course FROM ' . $CFG->sumarios_db_table . ' WHERE' .
+							 ' course = "' 			. $instance->course      . '" AND' .
+							 ' timeclass = "' 	. $instance->timeclass   . '" AND' .
+							 ' timecreated = "' . $instance->timecreated . '"';
+				$res = $ourDB->get_records_sql($sql);
+				
+				// if we get an empty array, let's export this record
+				if (empty($res)){
+
+					$data = new stdClass();
+					$data->name         = $instance->name;
+					$data->texto        = $instance->texto;
+		    	$data->course       = $instance->course;
+		    	$data->timeclass    = $instance->timeclass;
+		    	$data->timecreated  = $instance->timecreated;
+		    	$data->timemodified = $instance->timemodified;
+		    	 	
+		    	// insert this record into external DB
+		      $id = $ourDB->insert_record($CFG->sumarios_db_table, $data, false);
+					mtrace(get_string('sumarios_cron_04','sumarios') . " " . $id);
+				}
 		  }
 		  $instances->close();
 		}
-
 		if ($result) $ourDB->dispose();
 
     return $result;

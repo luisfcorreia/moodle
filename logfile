@@ -1,0 +1,2 @@
+FATAL:  lock file "postmaster.pid" already exists
+HINT:  Is another postmaster (PID 3973) running in data directory "/home/lfcorreia/_pgdata_"?
