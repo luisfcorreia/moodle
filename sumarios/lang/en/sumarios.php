@@ -65,4 +65,7 @@ $string['sumarios_cron_01'] = 'Finished sumarios cron job';
 $string['sumarios_cron_02'] = 'Connect to external database failed!!!';
 $string['sumarios_cron_03'] = 'Values are not set in configuration page!';
 $string['sumarios_cron_04'] = 'Inserting record on external database';
+$string['sumarios_cron_05'] = 'DATABASE ENGINE NOT AVAILABLE! ';
+$string['sumarios_cron_06'] = 'Unknown driver ';
+$string['sumarios_cron_07'] = 'moodle_exception';
 

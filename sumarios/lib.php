@@ -261,7 +261,7 @@ function sumarios_get_database_available() {
     
     foreach ($dbs as $type=>$database) {
         if ($database->driver_installed() !== true) {
-          $opt[] = 'DATABASE ENGINE NOT AVAILABLE! ' . $type . ' - ' . $database->get_name();
+          $opt[] = get_string('sumarios_cron_05','sumarios') . $type . ' - ' . $database->get_name();
 
 		} else {
           $opt[] = $type . ' - ' . $database->get_name();
@@ -283,7 +283,7 @@ function sumarios_process_to_external_database() {
 		$result = false;
 
     if (!$ourDB = moodle_database::get_driver_instance($databases[$CFG->sumarios_db_type], 'native')) {
-      mtrace("Unknown driver " . $databases[$CFG->sumarios_db_type]);
+      mtrace(get_string('sumarios_cron_06','sumarios') . $databases[$CFG->sumarios_db_type]);
 			$result = false;
     } else {
 
@@ -292,7 +292,7 @@ function sumarios_process_to_external_database() {
 										$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, '', $CFG->dboptions);
 					
 				} catch (moodle_exception $e) {
-				   mtrace("moodle_exception" . $e);
+				   mtrace(get_string('sumarios_cron_07','sumarios') . $e);
 				}
 
 			// loop through all sumarios records
@@ -309,7 +309,7 @@ function sumarios_process_to_external_database() {
       	$data->timeclass    = $instance->timeclass;
       	 	
       	// insert this record into external DB
-        $id = $ourDB->insert_record('export', $data, false);
+        $id = $ourDB->insert_record($CFG->sumarios_db_table, $data, false);
 				mtrace(get_string('sumarios_cron_04','sumarios') . " " . $id);
 		  }
 		  $instances->close();
@@ -331,6 +331,7 @@ function sumarios_process_to_external_database() {
 function sumarios_cron () {
 
     global $CFG;
+    
 		mtrace('');
 		mtrace(get_string('sumarios_cron_00','sumarios'));
 
