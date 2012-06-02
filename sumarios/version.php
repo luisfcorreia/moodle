@@ -24,7 +24,7 @@
  *
  * @package    mod
  * @subpackage sumarios
- * @copyright  2011 Your Name
+ * @copyright  2012 José Andrade & Luis Correia for Universidade Atlântica
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -33,5 +33,5 @@ defined('MOODLE_INTERNAL') || die();
 $module->version   = 2012052701;       
 $module->requires  = 2011000000;      // Requires this Moodle version
 $module->component = 'mod_sumarios'; // To check on upgrade, that module sits in correct place
-$module->cron      = 60;               // Period for cron to check this module (secs)
+$module->cron      = 1;               // Period for cron to check this module (secs)
 

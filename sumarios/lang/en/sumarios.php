@@ -24,7 +24,7 @@
  *
  * @package    mod
  * @subpackage sumarios
- * @copyright  2011 Your Name
+ * @copyright  2012 José Andrade & Luis Correia for Universidade Atlântica
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -60,4 +60,9 @@ $string['sumarios_db_pass_text'] = 'Define database password';
 $string['sumarios_db_table_text'] = 'Define database table';
 $string['sumarios_cron_text'] = 'Define export frequency';
 
+$string['sumarios_cron_00'] = 'Starting sumarios cron job';
+$string['sumarios_cron_01'] = 'Finished sumarios cron job';
+$string['sumarios_cron_02'] = 'Connect to external database failed!!!';
+$string['sumarios_cron_03'] = 'Values are not set in configuration page!';
+$string['sumarios_cron_04'] = 'Inserting record on external database';
 

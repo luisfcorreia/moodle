@@ -23,7 +23,7 @@
  *
  * @package    mod
  * @subpackage sumarios
- * @copyright  2011 Your Name
+ * @copyright  2012 José Andrade & Luis Correia for Universidade Atlântica
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

@@ -26,7 +26,7 @@
  *
  * @package    mod
  * @subpackage sumarios
- * @copyright  2011 Your Name
+ * @copyright  2012 José Andrade & Luis Correia for Universidade Atlântica
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -179,6 +179,36 @@ function sumarios_get_recent_mod_activity(&$activities, &$index, $timestart, $co
 }
 
 /**
+ * Tests external database connection
+
+ * @return boolean
+ */
+function sumarios_test_external_database() {
+
+    global $CFG;
+
+		$databases = array(0=>'mysqli',1=>'pgsql',2=>'oci',3=>'sqlsrv',4=>'mssql');
+		$result = false;
+
+    if (!$ourDB = moodle_database::get_driver_instance($databases[$CFG->sumarios_db_type], 'native')) {
+      mtrace("Unknown driver " . $databases[$CFG->sumarios_db_type]);
+			$result = false;
+    } else {
+
+		  try {
+		      $result = $ourDB->connect($CFG->sumarios_db_server, $CFG->sumarios_db_user, 
+												$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, '', $CFG->dboptions);
+					
+				} catch (moodle_exception $e) {
+				   // mtrace("moodle_exception" . $e);
+				}
+		}
+		if ($result) $ourDB->dispose();
+
+    return $result;
+}
+
+/**
  * Prints single activity item prepared by {@see sumarios_get_recent_mod_activity()}
 
  * @return void
@@ -187,7 +217,7 @@ function sumarios_print_recent_mod_activity($activity, $courseid, $detail, $modn
 }
 
 /**
- * Return ok data
+ * Verifies if all fields are filled
 
  * @return true if all fields are filled in
  */
@@ -222,7 +252,7 @@ function sumarios_get_db_list() {
 /**
  * Return list of database engines
 
- * @return databasessettings.php?section=modsettingsumarios
+ * @return array with list of database engines
  */
 function sumarios_get_database_available() {
 
@@ -271,48 +301,20 @@ function sumarios_process_to_external_database() {
 
 			//	id 	course 	name 	texto 	timecreated 	timemodified 	timeclass 
 				$data = new stdClass();
-				$data->name   = $instance->name;
-				$data->texto  = $instance->texto;
-      	$data->course = $instance->course;
-      	$data->timecreated  =$instance->timecreated;
-      	$data->timemodified =$instance->timemodified;
+				$data->name         = $instance->name;
+				$data->texto        = $instance->texto;
+      	$data->course       = $instance->course;
+      	$data->timecreated  = $instance->timecreated;
+      	$data->timemodified = $instance->timemodified;
       	$data->timeclass    = $instance->timeclass;
-        $ourDB->insert_record('export', $data, false);
+      	 	
+      	// insert this record into external DB
+        $id = $ourDB->insert_record('export', $data, false);
+				mtrace(get_string('sumarios_cron_04','sumarios') . " " . $id);
 		  }
 		  $instances->close();
 		}
 
-		if ($result) $ourDB->dispose();
-
-    return $result;
-}
-
-
-/**
- * Tests external database connection
-
- * @return boolean
- */
-function sumarios_test_external_database() {
-
-    global $CFG;
-
-		$databases = array(0=>'mysqli',1=>'pgsql',2=>'oci',3=>'sqlsrv',4=>'mssql');
-		$result = false;
-
-    if (!$ourDB = moodle_database::get_driver_instance($databases[$CFG->sumarios_db_type], 'native')) {
-      mtrace("Unknown driver " . $databases[$CFG->sumarios_db_type]);
-			$result = false;
-    } else {
-
-		  try {
-		      $result = $ourDB->connect($CFG->sumarios_db_server, $CFG->sumarios_db_user, 
-												$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, '', $CFG->dboptions);
-					
-				} catch (moodle_exception $e) {
-				   // mtrace("moodle_exception" . $e);
-				}
-		}
 		if ($result) $ourDB->dispose();
 
     return $result;
@@ -330,19 +332,19 @@ function sumarios_cron () {
 
     global $CFG;
 		mtrace('');
-		mtrace('Starting sumarios cron job..............................................................................................');
+		mtrace(get_string('sumarios_cron_00','sumarios'));
 
     if (sumarios_get_values()) {
 
 		  if (!sumarios_test_external_database()) {
-		  	mtrace('Connect to external database failed!!!');
+				mtrace(get_string('sumarios_cron_02','sumarios'));
 		  } else {
 				sumarios_process_to_external_database();
 		  }
 		} else {
-			mtrace('Values are not set in configuration page!');
+				mtrace(get_string('sumarios_cron_03','sumarios'));
 		}
-		mtrace('Finished sumarios cron job..............................................................................................');
+		mtrace(get_string('sumarios_cron_01','sumarios'));
     return true;
 }
 
