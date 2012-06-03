@@ -281,6 +281,7 @@ function sumarios_process_to_external_database() {
 
 		$databases = array(0=>'mysqli',1=>'pgsql',2=>'oci',3=>'sqlsrv',4=>'mssql');
 		$result = false;
+		$counter = 0;
 
     if (!$ourDB = moodle_database::get_driver_instance($databases[$CFG->sumarios_db_type], 'native')) {
       mtrace(get_string('sumarios_cron_06','sumarios') . $databases[$CFG->sumarios_db_type]);
@@ -319,10 +320,11 @@ function sumarios_process_to_external_database() {
 		    	 	
 		    	// insert this record into external DB
 		      $id = $ourDB->insert_record($CFG->sumarios_db_table, $data, false);
-					mtrace(get_string('sumarios_cron_04','sumarios') . " " . $id);
+					$counter = $counter + 1;
 				}
 		  }
 		  $instances->close();
+			mtrace(get_string('sumarios_cron_04','sumarios') . $counter . get_string('sumarios_cron_08','sumarios'));
 		}
 		if ($result) $ourDB->dispose();
 
