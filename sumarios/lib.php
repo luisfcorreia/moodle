@@ -197,10 +197,10 @@ function sumarios_test_external_database() {
 
 		  try {
 		      $result = $ourDB->connect($CFG->sumarios_db_server, $CFG->sumarios_db_user, 
-												$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, '', $CFG->dboptions);
+												$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, $CFG->sumarios_db_table_prefix, $CFG->dboptions);
 					
 				} catch (moodle_exception $e) {
-				   // mtrace("moodle_exception" . $e);
+				   mtrace(get_string('sumarios_cron_07','sumarios') . $e);
 				}
 		}
 		if ($result) $ourDB->dispose();
@@ -290,7 +290,7 @@ function sumarios_process_to_external_database() {
 
 		  try {
 		      $result = $ourDB->connect($CFG->sumarios_db_server, $CFG->sumarios_db_user, 
-										$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, '', $CFG->dboptions);
+										$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, $CFG->sumarios_db_table_prefix, $CFG->dboptions);
 					
 			} catch (moodle_exception $e) {
 				   mtrace(get_string('sumarios_cron_07','sumarios') . $e);
@@ -301,10 +301,10 @@ function sumarios_process_to_external_database() {
 		  foreach ($instances as $instance) {
 
 				// search if we have already exported this record
-				$sql = 'SELECT course FROM ' . $CFG->sumarios_db_table . ' WHERE' .
-							 ' course = "' 			. $instance->course      . '" AND' .
-							 ' timeclass = "' 	. $instance->timeclass   . '" AND' .
-							 ' timecreated = "' . $instance->timecreated . '"';
+				$sql = "SELECT course FROM " . $CFG->sumarios_db_table . " WHERE" .
+							 " course = '" 			. $instance->course      . "' AND" .
+							 " timeclass = '" 	. $instance->timeclass   . "' AND" .
+							 " timecreated = '" . $instance->timecreated . "'";
 				$res = $ourDB->get_records_sql($sql);
 				
 				// if we get an empty array, let's export this record

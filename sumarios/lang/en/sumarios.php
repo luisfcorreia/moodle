@@ -50,6 +50,7 @@ $string['sumarios_db_database'] = 'Database';
 $string['sumarios_db_user'] = 'Username';
 $string['sumarios_db_pass'] = 'Password';
 $string['sumarios_db_table'] = 'Table';
+$string['sumarios_db_table_prefix'] = 'Table prefix';
 $string['sumarios_cron'] = 'Export frequency';
 
 $string['sumarios_db_type_text'] = 'Choose database type';
@@ -58,6 +59,7 @@ $string['sumarios_db_database_text'] = 'Define which database';
 $string['sumarios_db_user_text'] = 'Define database username';
 $string['sumarios_db_pass_text'] = 'Define database password';
 $string['sumarios_db_table_text'] = 'Define database table';
+$string['sumarios_db_table_prefix_text'] = 'Table prefix for MSSQL';
 $string['sumarios_cron_text'] = 'Define export frequency';
 
 $string['sumarios_cron_00'] = 'Starting sumarios cron job';

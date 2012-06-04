@@ -39,6 +39,7 @@ if ($ADMIN->fulltree) {
 			$CFG->sumarios_db_user = "";
 			$CFG->sumarios_db_pass = "";
 			$CFG->sumarios_db_table = "";
+			$CFG->sumarios_db_table_prefix = "";
 			$CFG->sumarios_cron = 0;
 			$module->cron=0;
     }
@@ -84,6 +85,12 @@ if ($ADMIN->fulltree) {
 			"")
 			);
 											 
+											 
+		$settings->add(new admin_setting_configtext('sumarios_db_table_prefix', 
+		  get_string('sumarios_db_table_prefix', 'sumarios'),
+			get_string('sumarios_db_table_prefix_text', 'sumarios'), 
+			"")
+			);
 		$settings->add(new admin_setting_configtext( 'sumarios_cron' , 
 		  get_string('sumarios_cron', 'sumarios'),
 			get_string('sumarios_cron_text', 'sumarios'), 
