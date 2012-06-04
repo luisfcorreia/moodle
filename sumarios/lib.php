@@ -317,9 +317,12 @@ function sumarios_process_to_external_database() {
 		    	$data->timeclass    = $instance->timeclass;
 		    	$data->timecreated  = $instance->timecreated;
 		    	$data->timemodified = $instance->timemodified;
+					$data->timeexported = time();
+					//TODO timeexported
+
 		    	 	
 		    	// insert this record into external DB
-		      $id = $ourDB->insert_record($CFG->sumarios_db_table, $data, false);
+		      $id = $ourDB->insert_record($CFG->sumarios_db_table, $data, true);
 					$counter = $counter + 1;
 				}
 		  }
