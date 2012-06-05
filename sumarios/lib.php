@@ -333,6 +333,50 @@ function sumarios_process_to_external_database() {
     return $result;
 }
 
+
+/**
+ * Processes all data from sumarios table to external database
+
+ * @return boolean
+ */
+function sumarios_process_to_external_file() {
+
+    global $CFG, $DB;
+
+			// loop through all sumarios records
+		  $instances = $DB->get_recordset('sumarios');
+		  foreach ($instances as $instance) {
+
+				// search if we have already exported this record
+				$sql = "SELECT course FROM " . $CFG->sumarios_db_table . " WHERE" .
+							 " course = '" 			. $instance->course      . "' AND" .
+							 " timeclass = '" 	. $instance->timeclass   . "' AND" .
+							 " timecreated = '" . $instance->timecreated . "'";
+				$res = $ourDB->get_records_sql($sql);
+				
+				// if we get an empty array, let's export this record
+				if (empty($res)){
+
+					$data = new stdClass();
+					$data->name         = $instance->name;
+					$data->texto        = $instance->texto;
+		    	$data->course       = $instance->course;
+		    	$data->timeclass    = $instance->timeclass;
+		    	$data->timecreated  = $instance->timecreated;
+		    	$data->timemodified = $instance->timemodified;
+					$data->timeexported = time();
+					//TODO timeexported
+		    	 	
+					$counter = $counter + 1;
+				}
+		  }
+		  $instances->close();
+			mtrace(get_string('sumarios_cron_04','sumarios') . $counter . get_string('sumarios_cron_08','sumarios'));
+		}
+
+    return $result;
+}
+
 /**
  * Function to be run periodically according to the moodle cron
  * This function searches for things that need to be done, such
@@ -348,9 +392,8 @@ function sumarios_cron () {
 		mtrace('');
 		mtrace(get_string('sumarios_cron_00','sumarios'));
 		
-		if($CFG->sumarios_file_export == 1){
-			mtrace('file export :P');
-		
+		if($CFG->sumarios_file_export == 1 && is_writable ($CFG->sumarios_file_export_path)){
+				sumarios_process_to_external_file();
 		} else {
 
 		  if (sumarios_get_values()) {
