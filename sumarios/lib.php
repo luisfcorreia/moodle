@@ -319,7 +319,6 @@ function sumarios_process_to_external_database() {
 		    	$data->timemodified = $instance->timemodified;
 					$data->timeexported = time();
 					//TODO timeexported
-
 		    	 	
 		    	// insert this record into external DB
 		      $id = $ourDB->insert_record($CFG->sumarios_db_table, $data, true);
@@ -348,16 +347,22 @@ function sumarios_cron () {
     
 		mtrace('');
 		mtrace(get_string('sumarios_cron_00','sumarios'));
-
-    if (sumarios_get_values()) {
-
-		  if (!sumarios_test_external_database()) {
-				mtrace(get_string('sumarios_cron_02','sumarios'));
-		  } else {
-				sumarios_process_to_external_database();
-		  }
+		
+		if($CFG->sumarios_file_export == 1){
+			mtrace('file export :P');
+		
 		} else {
-				mtrace(get_string('sumarios_cron_03','sumarios'));
+
+		  if (sumarios_get_values()) {
+
+				if (!sumarios_test_external_database()) {
+					mtrace(get_string('sumarios_cron_02','sumarios'));
+				} else {
+					sumarios_process_to_external_database();
+				}
+			} else {
+					mtrace(get_string('sumarios_cron_03','sumarios'));
+			}
 		}
 		mtrace(get_string('sumarios_cron_01','sumarios'));
     return true;

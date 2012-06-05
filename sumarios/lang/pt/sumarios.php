@@ -51,6 +51,8 @@ $string['sumarios_db_user'] = 'Utilizador';
 $string['sumarios_db_pass'] = 'Password';
 $string['sumarios_db_table'] = 'Tabela';
 $string['sumarios_cron'] = 'Minutos entre cada exportação';
+$string['sumarios_file_export'] = 'Exportar ficheiro .SQL em vez de inserir dados directamente';
+$string['sumarios_file_export_path'] = 'Pasta base para a exportação';
 
 $string['sumarios_db_type_text'] = 'Escolha o tipo de servidor externo';
 $string['sumarios_db_server_text'] = 'Defina nome ou IP do servidor';

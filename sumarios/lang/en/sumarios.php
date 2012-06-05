@@ -52,6 +52,8 @@ $string['sumarios_db_pass'] = 'Password';
 $string['sumarios_db_table'] = 'Table';
 $string['sumarios_db_table_prefix'] = 'Table prefix';
 $string['sumarios_cron'] = 'Export frequency';
+$string['sumarios_file_export'] = 'Export .SQL file';
+$string['sumarios_file_export_path'] = 'Base folder for export';
 
 $string['sumarios_db_type_text'] = 'Choose database type';
 $string['sumarios_db_server_text'] = 'Define database server';
@@ -61,6 +63,8 @@ $string['sumarios_db_pass_text'] = 'Define database password';
 $string['sumarios_db_table_text'] = 'Define database table';
 $string['sumarios_db_table_prefix_text'] = 'Table prefix for MSSQL';
 $string['sumarios_cron_text'] = 'Define export frequency';
+$string['sumarios_file_export_text'] = 'Export .SQL file instead of direct insert';
+$string['sumarios_file_export_path_text'] = 'Name and extension will be automatic. Beware of folder permissions!';
 
 $string['sumarios_cron_00'] = 'Starting sumarios cron job';
 $string['sumarios_cron_01'] = 'Finished sumarios cron job';

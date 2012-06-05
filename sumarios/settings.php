@@ -33,6 +33,8 @@ if ($ADMIN->fulltree) {
     require_once($CFG->dirroot.'/mod/sumarios/lib.php');
 
     if (!isset($CFG->sumarios_db_type)) {
+			$CFG->sumarios_file_export = 0;
+			$CFG->sumarios_file_export_path = "";
 			$CFG->sumarios_db_type = "";
 			$CFG->sumarios_db_server = "";
 			$CFG->sumarios_db_database = "";
@@ -45,7 +47,19 @@ if ($ADMIN->fulltree) {
     }
 
     $options = sumarios_get_database_available();
-                     
+
+		$settings->add(new admin_setting_configcheckbox('sumarios_file_export', 
+		  get_string('sumarios_file_export', 'sumarios'),
+			get_string('sumarios_file_export', 'sumarios'), 
+			0)
+			);
+
+		$settings->add(new admin_setting_configtext('sumarios_file_export_path', 
+		  get_string('sumarios_file_export_path', 'sumarios'),
+			get_string('sumarios_file_export_path', 'sumarios'), 
+			"")
+			);											 
+											                      
     $settings->add(new admin_setting_configselect('sumarios_db_type', 
       get_string('sumarios_db_type', 'sumarios'),
       get_string('sumarios_db_type_text', 'sumarios'), 
@@ -83,14 +97,14 @@ if ($ADMIN->fulltree) {
 		  get_string('sumarios_db_table', 'sumarios'),
 			get_string('sumarios_db_table_text', 'sumarios'), 
 			"")
-			);
-											 
+			);											 
 											 
 		$settings->add(new admin_setting_configtext('sumarios_db_table_prefix', 
 		  get_string('sumarios_db_table_prefix', 'sumarios'),
 			get_string('sumarios_db_table_prefix_text', 'sumarios'), 
 			"")
 			);
+
 		$settings->add(new admin_setting_configtext( 'sumarios_cron' , 
 		  get_string('sumarios_cron', 'sumarios'),
 			get_string('sumarios_cron_text', 'sumarios'), 
