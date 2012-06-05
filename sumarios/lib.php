@@ -369,7 +369,6 @@ function sumarios_process_to_external_file() {
 		    	 	
 					$counter = $counter + 1;
 				}
-		  }
 		  $instances->close();
 			mtrace(get_string('sumarios_cron_04','sumarios') . $counter . get_string('sumarios_cron_08','sumarios'));
 		}
