@@ -80,7 +80,7 @@ if ($ADMIN->fulltree) {
 		$settings->add(new admin_setting_configtext('sumarios_file_export_path', 
 		  get_string('sumarios_file_export_path', 'sumarios'),
 			get_string('sumarios_file_export_path', 'sumarios'), 
-			"")
+			"" , PARAM_PATH)
 			);							
 							 
 
