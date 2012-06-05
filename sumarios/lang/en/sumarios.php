@@ -65,6 +65,7 @@ $string['sumarios_db_table_prefix_text'] = 'Table prefix for MSSQL';
 $string['sumarios_cron_text'] = 'Define export frequency';
 $string['sumarios_file_export_text'] = 'Export .SQL file instead of direct insert';
 $string['sumarios_file_export_path_text'] = 'Name and extension will be automatic. Beware of folder permissions!';
+$string['sumarios_last_export_time']='Last time we exported the data.';
 
 $string['sumarios_cron_00'] = 'Starting sumarios cron job';
 $string['sumarios_cron_01'] = 'Finished sumarios cron job';
