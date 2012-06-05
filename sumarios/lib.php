@@ -341,38 +341,40 @@ function sumarios_process_to_external_database() {
  */
 function sumarios_process_to_external_file() {
 
-    global $CFG, $DB;
+  global $CFG, $DB;
 
-			// loop through all sumarios records
-		  $instances = $DB->get_recordset('sumarios');
-		  foreach ($instances as $instance) {
+	$now = time();
+	$result = false;
+	$counter= 0;
 
-				// search if we have already exported this record
-				$sql = "SELECT course FROM " . $CFG->sumarios_db_table . " WHERE" .
-							 " course = '" 			. $instance->course      . "' AND" .
-							 " timeclass = '" 	. $instance->timeclass   . "' AND" .
-							 " timecreated = '" . $instance->timecreated . "'";
-				$res = $ourDB->get_records_sql($sql);
-				
-				// if we get an empty array, let's export this record
-				if (empty($res)){
+		// loop through all sumarios records
+	  $instances = $DB->get_recordset('sumarios');
+	  foreach ($instances as $instance) {
+	
+		if (true){
+/*		
+			if ($instance->timeclass < $now &&
+					($instance->timecreated > $CFG->sumarios_last_export_time ||
+					 $instance->timemodified > $CFG->sumarios_last_export_time)) {
+*/
+				$data = new stdClass();
+				$data->name         = $instance->name;
+				$data->texto        = $instance->texto;
+	    	$data->course       = $instance->course;
+	    	$data->timeclass    = $instance->timeclass;
+	    	$data->timecreated  = $instance->timecreated;
+	    	$data->timemodified = $instance->timemodified;
 
-					$data = new stdClass();
-					$data->name         = $instance->name;
-					$data->texto        = $instance->texto;
-		    	$data->course       = $instance->course;
-		    	$data->timeclass    = $instance->timeclass;
-		    	$data->timecreated  = $instance->timecreated;
-		    	$data->timemodified = $instance->timemodified;
-					$data->timeexported = time();
-					//TODO timeexported
-		    	 	
-					$counter = $counter + 1;
-				}
-		  }
-		  $instances->close();
-			mtrace(get_string('sumarios_cron_04','sumarios') . $counter . get_string('sumarios_cron_08','sumarios'));
-		}
+        $sql = "INSERT INTO '" .$CFG->sumarios_db_table . "' (name,texto,course,timeclass,timecreated,timemodified) " .
+			 			   "VALUES ('" . $instance->name . "','" . $instance->texto . "'," . $instance->course . "," . 
+ 							 $instance->timeclass . "," . $instance->timecreated  . "," . $instance->timemodified .");";
+
+				mtrace($sql);
+				$counter = $counter + 1;
+			}
+	  }
+	  $instances->close();
+		mtrace(get_string('sumarios_cron_04','sumarios') . $counter . get_string('sumarios_cron_08','sumarios'));
 
     return $result;
 }
