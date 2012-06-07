@@ -354,14 +354,13 @@ function sumarios_process_to_external_database() {
 /**
  * Processes all data from sumarios table to external database
 
- * @return boolean
+ * @return void
  */
 function sumarios_process_to_external_file() {
 
   global $CFG, $DB;
 
 	$now = time();
-	$result = false;
 	$counter= 0;
 	$filename = $CFG->sumarios_file_export_path . '/sumarios_' . date('YmdHi',$now) . '.sql';
 	$fp = fopen($filename, 'w');
@@ -373,13 +372,6 @@ function sumarios_process_to_external_file() {
 		if ($instance->timeclass < $now &&
 				($instance->timecreated > $CFG->sumarios_last_export_time ||
 				 $instance->timemodified > $CFG->sumarios_last_export_time)) {
-			$data = new stdClass();
-			$data->name         = $instance->name;
-			$data->texto        = $instance->texto;
-    	$data->course       = $instance->course;
-    	$data->timeclass    = $instance->timeclass;
-    	$data->timecreated  = $instance->timecreated;
-    	$data->timemodified = $instance->timemodified;
 
       $sql = "INSERT INTO '" .$CFG->sumarios_db_table . "' (name,texto,course,timeclass,timecreated,timemodified) " .
 		 			   "VALUES ('" . $instance->name . "','" . $instance->texto . "'," . $instance->course . "," . 
@@ -392,10 +384,11 @@ function sumarios_process_to_external_file() {
   }
   $instances->close();
 	mtrace(get_string('sumarios_cron_04','sumarios') . $counter . get_string('sumarios_cron_08','sumarios'));
+	$CFG->sumarios_last_export_time = $now;
 
 	fclose($fp);
 
-  return $result;
+  return;
 }
 
 /**

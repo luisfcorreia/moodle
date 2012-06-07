@@ -44,7 +44,7 @@ if ($ADMIN->fulltree) {
 		if (!isset($CFG->sumarios_cron))							$CFG->sumarios_cron = 0;
 		if (!isset($CFG->sumarios_file_export))				$CFG->sumarios_file_export = 0;
 		if (!isset($CFG->sumarios_file_export_path))	$CFG->sumarios_file_export_path = "";
-		if (!isset($CFG->sumarios_last_export_time))	$CFG->sumarios_last_export_time=0;
+		if (!isset($CFG->sumarios_last_export_time))	$CFG->sumarios_last_export_time= 0;
 
 		$settings->add(new admin_setting_configcheckbox('sumarios_file_export', 
 		  get_string('sumarios_file_export', 'sumarios'),
