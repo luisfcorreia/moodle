@@ -233,6 +233,23 @@ function sumarios_get_values() {
 	return $result;
 }
 
+
+/**
+ * Verifies if all fields are filled for file export
+
+ * @return true if all fields are filled in
+ */
+function sumarios_get_values_file() {
+
+	global $CFG;
+	$result = false;	
+
+	if ($CFG->sumarios_file_export_path ) {
+		$result= true;
+	}
+	return $result;
+}
+
 /**
  * Return array with possible database engines
 
@@ -244,7 +261,7 @@ function sumarios_get_db_list() {
                 'pgsql'  => moodle_database::get_driver_instance('pgsql',  'native'),
                 'oci'    => moodle_database::get_driver_instance('oci',    'native'),
                 'sqlsrv' => moodle_database::get_driver_instance('sqlsrv', 'native'), // MS SQL*Server PHP driver
-                'mssql'  => moodle_database::get_driver_instance('mssql',  'native') // FreeTDS driver
+                'mssql'  => moodle_database::get_driver_instance('mssql',  'native')  // FreeTDS driver
                 );
 		return $db;
 }
@@ -346,37 +363,39 @@ function sumarios_process_to_external_file() {
 	$now = time();
 	$result = false;
 	$counter= 0;
+	$filename = $CFG->sumarios_file_export_path . '/sumarios_' . date('YmdHi',$now) . '.sql';
+	$fp = fopen($filename, 'w');
 
-		// loop through all sumarios records
-	  $instances = $DB->get_recordset('sumarios');
-	  foreach ($instances as $instance) {
-	
-		if (true){
-/*		
-			if ($instance->timeclass < $now &&
-					($instance->timecreated > $CFG->sumarios_last_export_time ||
-					 $instance->timemodified > $CFG->sumarios_last_export_time)) {
-*/
-				$data = new stdClass();
-				$data->name         = $instance->name;
-				$data->texto        = $instance->texto;
-	    	$data->course       = $instance->course;
-	    	$data->timeclass    = $instance->timeclass;
-	    	$data->timecreated  = $instance->timecreated;
-	    	$data->timemodified = $instance->timemodified;
+	// loop through all sumarios records
+  $instances = $DB->get_recordset('sumarios');
+  foreach ($instances as $instance) {
 
-        $sql = "INSERT INTO '" .$CFG->sumarios_db_table . "' (name,texto,course,timeclass,timecreated,timemodified) " .
-			 			   "VALUES ('" . $instance->name . "','" . $instance->texto . "'," . $instance->course . "," . 
- 							 $instance->timeclass . "," . $instance->timecreated  . "," . $instance->timemodified .");";
+		if ($instance->timeclass < $now &&
+				($instance->timecreated > $CFG->sumarios_last_export_time ||
+				 $instance->timemodified > $CFG->sumarios_last_export_time)) {
+			$data = new stdClass();
+			$data->name         = $instance->name;
+			$data->texto        = $instance->texto;
+    	$data->course       = $instance->course;
+    	$data->timeclass    = $instance->timeclass;
+    	$data->timecreated  = $instance->timecreated;
+    	$data->timemodified = $instance->timemodified;
 
-				mtrace($sql);
-				$counter = $counter + 1;
-			}
-	  }
-	  $instances->close();
-		mtrace(get_string('sumarios_cron_04','sumarios') . $counter . get_string('sumarios_cron_08','sumarios'));
+      $sql = "INSERT INTO '" .$CFG->sumarios_db_table . "' (name,texto,course,timeclass,timecreated,timemodified) " .
+		 			   "VALUES ('" . $instance->name . "','" . $instance->texto . "'," . $instance->course . "," . 
+						 $instance->timeclass . "," . $instance->timecreated  . "," . $instance->timemodified .");";
 
-    return $result;
+			fwrite($fp, $sql);
+
+			$counter = $counter + 1;
+		}
+  }
+  $instances->close();
+	mtrace(get_string('sumarios_cron_04','sumarios') . $counter . get_string('sumarios_cron_08','sumarios'));
+
+	fclose($fp);
+
+  return $result;
 }
 
 /**
@@ -395,11 +414,9 @@ function sumarios_cron () {
 		mtrace(get_string('sumarios_cron_00','sumarios'));
 		
 		if($CFG->sumarios_file_export == 1 && is_writable ($CFG->sumarios_file_export_path)){
-				sumarios_process_to_external_file();
+		  if (sumarios_get_values_file()) sumarios_process_to_external_file();
 		} else {
-
 		  if (sumarios_get_values()) {
-
 				if (!sumarios_test_external_database()) {
 					mtrace(get_string('sumarios_cron_02','sumarios'));
 				} else {
