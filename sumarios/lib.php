@@ -365,6 +365,26 @@ function sumarios_process_to_external_file() {
 	$filename = $CFG->sumarios_file_export_path . '/sumarios_' . date('YmdHi',$now) . '.sql';
 	$fp = fopen($filename, 'w');
 
+	/*
+	--
+	-- Table structure for table `sumarios_export`
+	--
+	*/
+
+	$sql = "CREATE TABLE IF NOT EXISTS `" .$CFG->sumarios_db_table . "` (
+						`id` int(11) NOT NULL AUTO_INCREMENT,
+						`course` bigint(10) unsigned DEFAULT NULL,
+						`name` varchar(255) DEFAULT NULL,
+						`texto` longtext DEFAULT NULL,
+						`timecreated` bigint(10) unsigned DEFAULT NULL,
+						`timemodified` bigint(10) unsigned DEFAULT NULL,
+						`timeclass` bigint(10) unsigned DEFAULT NULL,
+						`timeexported` bigint(10) DEFAULT NULL,
+						PRIMARY KEY (`id`)
+					) DEFAULT CHARSET=utf8 COMMENT='Sumarios_export' AUTO_INCREMENT=1 ";
+
+	fwrite($fp, $sql);
+
 	// loop through all sumarios records
   $instances = $DB->get_recordset('sumarios');
   foreach ($instances as $instance) {
