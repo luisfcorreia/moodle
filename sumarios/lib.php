@@ -365,12 +365,14 @@ function sumarios_process_to_external_file() {
 	$filename = $CFG->sumarios_file_export_path . '/sumarios_' . date('YmdHi',$now) . '.sql';
 	$fp = fopen($filename, 'w');
 
+	$sql = "--\n-- Export data for " . date('YmdHi',$now) . ".\n--\n";
+	fwrite($fp, $sql);
+
 	/*
 	--
 	-- Table structure for table `sumarios_export`
 	--
 	*/
-
 	$sql = "CREATE TABLE IF NOT EXISTS `" .$CFG->sumarios_db_table . "` (
 						`id` int(11) NOT NULL AUTO_INCREMENT,
 						`course` bigint(10) unsigned DEFAULT NULL,
@@ -379,10 +381,9 @@ function sumarios_process_to_external_file() {
 						`timecreated` bigint(10) unsigned DEFAULT NULL,
 						`timemodified` bigint(10) unsigned DEFAULT NULL,
 						`timeclass` bigint(10) unsigned DEFAULT NULL,
-						`timeexported` bigint(10) DEFAULT NULL,
+						`timeexported` bigint(10) unsigned DEFAULT NULL,
 						PRIMARY KEY (`id`)
 					) DEFAULT CHARSET=utf8 COMMENT='Sumarios_export' AUTO_INCREMENT=1;\n";
-
 	fwrite($fp, $sql);
 
 	// loop through all sumarios records
@@ -396,7 +397,6 @@ function sumarios_process_to_external_file() {
       $sql = "INSERT INTO '" .$CFG->sumarios_db_table . "' (name,texto,course,timeclass,timecreated,timemodified) " .
 		 			   "VALUES ('" . $instance->name . "','" . $instance->texto . "'," . $instance->course . "," . 
 						 $instance->timeclass . "," . $instance->timecreated  . "," . $instance->timemodified .");\n";
-
 			fwrite($fp, $sql);
 
 			$counter = $counter + 1;
@@ -404,9 +404,8 @@ function sumarios_process_to_external_file() {
   }
   $instances->close();
 	mtrace(get_string('sumarios_cron_04','sumarios') . $counter . get_string('sumarios_cron_08','sumarios'));
-	$CFG->sumarios_last_export_time = $now;
-
 	fclose($fp);
+	$CFG->sumarios_last_export_time = $now;
 
   return;
 }
