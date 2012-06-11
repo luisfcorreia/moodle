@@ -381,7 +381,7 @@ function sumarios_process_to_external_file() {
 						`timeclass` bigint(10) unsigned DEFAULT NULL,
 						`timeexported` bigint(10) DEFAULT NULL,
 						PRIMARY KEY (`id`)
-					) DEFAULT CHARSET=utf8 COMMENT='Sumarios_export' AUTO_INCREMENT=1 ";
+					) DEFAULT CHARSET=utf8 COMMENT='Sumarios_export' AUTO_INCREMENT=1;\n";
 
 	fwrite($fp, $sql);
 
@@ -395,7 +395,7 @@ function sumarios_process_to_external_file() {
 
       $sql = "INSERT INTO '" .$CFG->sumarios_db_table . "' (name,texto,course,timeclass,timecreated,timemodified) " .
 		 			   "VALUES ('" . $instance->name . "','" . $instance->texto . "'," . $instance->course . "," . 
-						 $instance->timeclass . "," . $instance->timecreated  . "," . $instance->timemodified .");";
+						 $instance->timeclass . "," . $instance->timecreated  . "," . $instance->timemodified .");\n";
 
 			fwrite($fp, $sql);
 
