@@ -36,48 +36,48 @@ require_once($CFG->dirroot.'/course/moodleform_mod.php');
  */
 class mod_sumarios_mod_form extends moodleform_mod {
 
-    /**
-     * Defines forms elements
-     */
-    public function definition() {
+	/**
+	 * Defines forms elements
+	 */
+	public function definition() {
 
-        $mform = $this->_form;
+		$mform = $this->_form;
 
-        //-------------------------------------------------------------------------------
-        // Adding the "general" fieldset, where all the common settings are showed
-        $mform->addElement('header', 'general', get_string('general', 'form'));
+		//-------------------------------------------------------------------------------
+		// Adding the "general" fieldset, where all the common settings are showed
+		$mform->addElement('header', 'general', get_string('general', 'form'));
 
-        // Adding the standard "name" field
-        $mform->addElement('text', 'name', get_string('sumariosname', 'sumarios'), array('size'=>'64'));
-        if (!empty($CFG->formatstringstriptags)) {
-            $mform->setType('name', PARAM_TEXT);
-        } else {
-            $mform->setType('name', PARAM_CLEAN);
-        }
+		// Adding the standard "name" field
+		$mform->addElement('text', 'name', get_string('sumariosname', 'sumarios'), array('size'=>'64'));
+		if (!empty($CFG->formatstringstriptags)) {
+			$mform->setType('name', PARAM_TEXT);
+		} else {
+			$mform->setType('name', PARAM_CLEAN);
+		}
 
-        $mform->addRule('name', null, 'required', null, 'client');
-        $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
-        $mform->addHelpButton('name', 'sumariosname', 'sumarios');
+		$mform->addRule('name', null, 'required', null, 'client');
+		$mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+		$mform->addHelpButton('name', 'sumariosname', 'sumarios');
 
-        //-------------------------------------------------------------------------------
-        $mform->addElement('textarea', 'texto', get_string('sumariostexto', 'sumarios'),array('cols'=>48, 'rows'=>6));
-        $mform->setType('texto', PARAM_TEXT);
+		//-------------------------------------------------------------------------------
+		$mform->addElement('textarea', 'texto', get_string('sumariostexto', 'sumarios'),array('cols'=>48, 'rows'=>6));
+		$mform->setType('texto', PARAM_TEXT);
 
-        //$mform->addElement('editor', 'texto', get_string('sumariostexto', 'sumarios'));
-        //$mform->setType('texto', PARAM_RAW);
+		//$mform->addElement('editor', 'texto', get_string('sumariostexto', 'sumarios'));
+		//$mform->setType('texto', PARAM_RAW);
 
-        $mform->addHelpButton('texto', 'sumariostexto', 'sumarios');
-        $mform->addRule('texto', get_string('required'), 'required', null, 'client');
-        
-        //-------------------------------------------------------------------------------
-        $mform->addElement('date_selector', 'timeclass', get_string('sumariosdata','sumarios'));
-        $mform->addRule('timeclass', get_string('required'), 'required', null, 'client');
+		$mform->addHelpButton('texto', 'sumariostexto', 'sumarios');
+		$mform->addRule('texto', get_string('required'), 'required', null, 'client');
 
-        //-------------------------------------------------------------------------------
-        // add standard elements, common to all modules
-        $this->standard_coursemodule_elements();
-        //-------------------------------------------------------------------------------
-        // add standard buttons, common to all modules
-        $this->add_action_buttons();
-    }
+		//-------------------------------------------------------------------------------
+		$mform->addElement('date_selector', 'timeclass', get_string('sumariosdata','sumarios'));
+		$mform->addRule('timeclass', get_string('required'), 'required', null, 'client');
+
+		//-------------------------------------------------------------------------------
+		// add standard elements, common to all modules
+		$this->standard_coursemodule_elements();
+		//-------------------------------------------------------------------------------
+		// add standard buttons, common to all modules
+		$this->add_action_buttons();
+	}
 }

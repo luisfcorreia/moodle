@@ -34,23 +34,23 @@ $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
 $n  = optional_param('s', 0, PARAM_INT);  // sumarios instance ID - it should be named as the first character of the module
 
 if ($id) {
-    $cm         = get_coursemodule_from_id('sumarios', $id, 0, false, MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-    $sumarios   = $DB->get_record('sumarios', array('id' => $cm->instance), '*', MUST_EXIST);
+	$cm         = get_coursemodule_from_id('sumarios', $id, 0, false, MUST_EXIST);
+	$course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+	$sumarios   = $DB->get_record('sumarios', array('id' => $cm->instance), '*', MUST_EXIST);
 } elseif ($n) {
-    $sumarios   = $DB->get_record('sumarios', array('id' => $n), '*', MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $sumarios->course), '*', MUST_EXIST);
-    $cm         = get_coursemodule_from_instance('sumarios', $sumarios->id, $course->id, false, MUST_EXIST);
+	$sumarios   = $DB->get_record('sumarios', array('id' => $n), '*', MUST_EXIST);
+	$course     = $DB->get_record('course', array('id' => $sumarios->course), '*', MUST_EXIST);
+	$cm         = get_coursemodule_from_instance('sumarios', $sumarios->id, $course->id, false, MUST_EXIST);
 } else {
-    error('You must specify a course_module ID or an instance ID');
+	error('You must specify a course_module ID or an instance ID');
 }
 
 require_login($course, true, $cm);
 
 if ($id) {
-    $context    = get_context_instance(CONTEXT_MODULE, $cm->id);
+	$context    = get_context_instance(CONTEXT_MODULE, $cm->id);
 } elseif ($n) {
-    $context    = context_module::instance_by_id($cm->id);
+	$context    = context_module::instance_by_id($cm->id);
 }
 
 add_to_log($course->id, 'sumarios', 'view', "view.php?id={$cm->id}", $sumarios->name, $cm->id);

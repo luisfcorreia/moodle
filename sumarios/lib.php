@@ -44,9 +44,9 @@ defined('MOODLE_INTERNAL') || die();
  * @return mixed true if the feature is supported, null if unknown
  */
 function sumarios_supports($feature) {
-    switch($feature) {
-        default:                        return null;
-    }
+	switch($feature) {
+		default:                        return null;
+	}
 }
 
 /**
@@ -62,15 +62,15 @@ function sumarios_supports($feature) {
  * @return int The id of the newly inserted sumarios record
  */
 function sumarios_add_instance(stdClass $sumarios, mod_sumarios_mod_form $mform = null) {
-    global $DB;
+	global $DB;
 
-    $sumarios->timecreated = time();
-//		$sumarios->longtext = $mform->longtext;
-		    
-//		$sumarios->id = $DB->insert_record('sumarios', $sumarios);
-//    return $sumarios->id;
+	$sumarios->timecreated = time();
+	//		$sumarios->longtext = $mform->longtext;
 
-    return $DB->insert_record('sumarios', $sumarios);
+	//		$sumarios->id = $DB->insert_record('sumarios', $sumarios);
+	//    return $sumarios->id;
+
+	return $DB->insert_record('sumarios', $sumarios);
 
 }
 
@@ -86,14 +86,14 @@ function sumarios_add_instance(stdClass $sumarios, mod_sumarios_mod_form $mform 
  * @return boolean Success/Fail
  */
 function sumarios_update_instance(stdClass $sumarios, mod_sumarios_mod_form $mform = null) {
-    global $DB;
+	global $DB;
 
-    $sumarios->timemodified = time();
-    $sumarios->id = $sumarios->instance;
+	$sumarios->timemodified = time();
+	$sumarios->id = $sumarios->instance;
 
-    # You may have to add extra stuff in here #
+	# You may have to add extra stuff in here #
 
-    return $DB->update_record('sumarios', $sumarios);
+	return $DB->update_record('sumarios', $sumarios);
 }
 
 /**
@@ -107,15 +107,15 @@ function sumarios_update_instance(stdClass $sumarios, mod_sumarios_mod_form $mfo
  * @return boolean Success/Failure
  */
 function sumarios_delete_instance($id) {
-    global $DB;
+	global $DB;
 
-    if (! $sumarios = $DB->get_record('sumarios', array('id' => $id))) {
-        return false;
-    }
+	if (! $sumarios = $DB->get_record('sumarios', array('id' => $id))) {
+		return false;
+	}
 
-    $DB->delete_records('sumarios', array('id' => $sumarios->id));
+	$DB->delete_records('sumarios', array('id' => $sumarios->id));
 
-    return true;
+	return true;
 }
 
 /**
@@ -129,10 +129,10 @@ function sumarios_delete_instance($id) {
  */
 function sumarios_user_outline($course, $user, $mod, $sumarios) {
 
-    $return = new stdClass();
-    $return->time = 0;
-    $return->info = '';
-    return $return;
+	$return = new stdClass();
+	$return->time = 0;
+	$return->info = '';
+	return $return;
 }
 
 /**
@@ -156,7 +156,7 @@ function sumarios_user_complete($course, $user, $mod, $sumarios) {
  * @return boolean
  */
 function sumarios_print_recent_activity($course, $viewfullnames, $timestart) {
-    return false;  //  True if anything was printed, otherwise false
+	return false;  //  True if anything was printed, otherwise false
 }
 
 /**
@@ -185,27 +185,27 @@ function sumarios_get_recent_mod_activity(&$activities, &$index, $timestart, $co
  */
 function sumarios_test_external_database() {
 
-    global $CFG;
+	global $CFG;
 
-		$databases = array(0=>'mysqli',1=>'pgsql',2=>'oci',3=>'sqlsrv',4=>'mssql');
+	$databases = array(0=>'mysqli',1=>'pgsql',2=>'oci',3=>'sqlsrv',4=>'mssql');
+	$result = false;
+
+	if (!$ourDB = moodle_database::get_driver_instance($databases[$CFG->sumarios_db_type], 'native')) {
+		mtrace("Unknown driver " . $databases[$CFG->sumarios_db_type]);
 		$result = false;
+	} else {
 
-    if (!$ourDB = moodle_database::get_driver_instance($databases[$CFG->sumarios_db_type], 'native')) {
-      mtrace("Unknown driver " . $databases[$CFG->sumarios_db_type]);
-			$result = false;
-    } else {
-
-		  try {
-		      $result = $ourDB->connect($CFG->sumarios_db_server, $CFG->sumarios_db_user, 
-												$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, $CFG->sumarios_db_table_prefix, $CFG->dboptions);
-					
-				} catch (moodle_exception $e) {
-				   mtrace(get_string('sumarios_cron_07','sumarios') . $e);
-				}
+		try {
+			$result = $ourDB->connect($CFG->sumarios_db_server, $CFG->sumarios_db_user,
+			$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, $CFG->sumarios_db_table_prefix, $CFG->dboptions);
+				
+		} catch (moodle_exception $e) {
+			mtrace(get_string('sumarios_cron_07','sumarios') . $e);
 		}
-		if ($result) $ourDB->dispose();
+	}
+	if ($result) $ourDB->dispose();
 
-    return $result;
+	return $result;
 }
 
 /**
@@ -224,11 +224,11 @@ function sumarios_print_recent_mod_activity($activity, $courseid, $detail, $modn
 function sumarios_get_values() {
 
 	global $CFG;
-	$result = false;	
+	$result = false;
 
 	if ($CFG->sumarios_db_type <> "" && $CFG->sumarios_db_user <> "" && $CFG->sumarios_db_pass <> "" &&
-		  $CFG->sumarios_db_table <> "" && $CFG->sumarios_db_server <> "" && $CFG->sumarios_db_database <> "" ) {
-				$result= true;
+	$CFG->sumarios_db_table <> "" && $CFG->sumarios_db_server <> "" && $CFG->sumarios_db_database <> "" ) {
+		$result= true;
 	}
 	return $result;
 }
@@ -242,7 +242,7 @@ function sumarios_get_values() {
 function sumarios_get_values_file() {
 
 	global $CFG;
-	$result = false;	
+	$result = false;
 
 	if ($CFG->sumarios_file_export_path ) {
 		$result= true;
@@ -257,13 +257,13 @@ function sumarios_get_values_file() {
  */
 function sumarios_get_db_list() {
 
-    $db = array('mysqli' => moodle_database::get_driver_instance('mysqli', 'native'),
+	$db = array('mysqli' => moodle_database::get_driver_instance('mysqli', 'native'),
                 'pgsql'  => moodle_database::get_driver_instance('pgsql',  'native'),
                 'oci'    => moodle_database::get_driver_instance('oci',    'native'),
                 'sqlsrv' => moodle_database::get_driver_instance('sqlsrv', 'native'), // MS SQL*Server PHP driver
                 'mssql'  => moodle_database::get_driver_instance('mssql',  'native')  // FreeTDS driver
-                );
-		return $db;
+	);
+	return $db;
 }
 
 /**
@@ -273,18 +273,18 @@ function sumarios_get_db_list() {
  */
 function sumarios_get_database_available() {
 
-    $dbs = sumarios_get_db_list();
-    $opt = array();   
-    
-    foreach ($dbs as $type=>$database) {
-        if ($database->driver_installed() !== true) {
-          $opt[] = get_string('sumarios_cron_05','sumarios') . $type . ' - ' . $database->get_name();
+	$dbs = sumarios_get_db_list();
+	$opt = array();
+
+	foreach ($dbs as $type=>$database) {
+		if ($database->driver_installed() !== true) {
+			$opt[] = get_string('sumarios_cron_05','sumarios') . $type . ' - ' . $database->get_name();
 
 		} else {
-          $opt[] = $type . ' - ' . $database->get_name();
-        }
-    }
-		return $opt;
+			$opt[] = $type . ' - ' . $database->get_name();
+		}
+	}
+	return $opt;
 }
 
 /**
@@ -294,60 +294,60 @@ function sumarios_get_database_available() {
  */
 function sumarios_process_to_external_database() {
 
-    global $CFG, $DB;
+	global $CFG, $DB;
 
-		$databases = array(0=>'mysqli',1=>'pgsql',2=>'oci',3=>'sqlsrv',4=>'mssql');
+	$databases = array(0=>'mysqli',1=>'pgsql',2=>'oci',3=>'sqlsrv',4=>'mssql');
+	$result = false;
+	$counter = 0;
+
+	if (!$ourDB = moodle_database::get_driver_instance($databases[$CFG->sumarios_db_type], 'native')) {
+		mtrace(get_string('sumarios_cron_06','sumarios') . $databases[$CFG->sumarios_db_type]);
 		$result = false;
-		$counter = 0;
+	} else {
 
-    if (!$ourDB = moodle_database::get_driver_instance($databases[$CFG->sumarios_db_type], 'native')) {
-      mtrace(get_string('sumarios_cron_06','sumarios') . $databases[$CFG->sumarios_db_type]);
-			$result = false;
-    } else {
+		try {
+			$result = $ourDB->connect($CFG->sumarios_db_server, $CFG->sumarios_db_user,
+			$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, $CFG->sumarios_db_table_prefix, $CFG->dboptions);
+				
+		} catch (moodle_exception $e) {
+			mtrace(get_string('sumarios_cron_07','sumarios') . $e);
+		}
 
-		  try {
-		      $result = $ourDB->connect($CFG->sumarios_db_server, $CFG->sumarios_db_user, 
-										$CFG->sumarios_db_pass,	$CFG->sumarios_db_database, $CFG->sumarios_db_table_prefix, $CFG->dboptions);
-					
-			} catch (moodle_exception $e) {
-				   mtrace(get_string('sumarios_cron_07','sumarios') . $e);
-			}
+		// loop through all sumarios records
+		$instances = $DB->get_recordset('sumarios');
+		foreach ($instances as $instance) {
 
-			// loop through all sumarios records
-		  $instances = $DB->get_recordset('sumarios');
-		  foreach ($instances as $instance) {
-
-				// search if we have already exported this record
-				$sql = "SELECT course FROM " . $CFG->sumarios_db_table . " WHERE" .
+			// search if we have already exported this record
+			$sql = "SELECT course FROM " . $CFG->sumarios_db_table . " WHERE" .
 							 " course = '" 			. $instance->course      . "' AND" .
 							 " timeclass = '" 	. $instance->timeclass   . "' AND" .
 							 " timecreated = '" . $instance->timecreated . "'";
-				$res = $ourDB->get_records_sql($sql);
-				
-				// if we get an empty array, let's export this record
-				if (empty($res)){
+			$res = $ourDB->get_records_sql($sql);
 
-					$data = new stdClass();
-					$data->name         = $instance->name;
-					$data->texto        = $instance->texto;
-		    	$data->course       = $instance->course;
-		    	$data->timeclass    = $instance->timeclass;
-		    	$data->timecreated  = $instance->timecreated;
-		    	$data->timemodified = $instance->timemodified;
-					$data->timeexported = time();
-					//TODO timeexported
-		    	 	
-		    	// insert this record into external DB
-		      $id = $ourDB->insert_record($CFG->sumarios_db_table, $data, true);
-					$counter = $counter + 1;
-				}
-		  }
-		  $instances->close();
-			mtrace(get_string('sumarios_cron_04','sumarios') . $counter . get_string('sumarios_cron_08','sumarios'));
+			// if we get an empty array, let's export this record
+			if (empty($res)){
+
+				$data = new stdClass();
+				$data->name         = $instance->name;
+				$data->texto        = $instance->texto;
+				$data->course       = $instance->course;
+				$data->timeclass    = $instance->timeclass;
+				$data->timecreated  = $instance->timecreated;
+				$data->timemodified = $instance->timemodified;
+				$data->timeexported = time();
+				//TODO timeexported
+		   
+				// insert this record into external DB
+				$id = $ourDB->insert_record($CFG->sumarios_db_table, $data, true);
+				$counter = $counter + 1;
+			}
 		}
-		if ($result) $ourDB->dispose();
+		$instances->close();
+		mtrace(get_string('sumarios_cron_04','sumarios') . $counter . get_string('sumarios_cron_08','sumarios'));
+	}
+	if ($result) $ourDB->dispose();
 
-    return $result;
+	return $result;
 }
 
 
@@ -358,7 +358,7 @@ function sumarios_process_to_external_database() {
  */
 function sumarios_process_to_external_file() {
 
-  global $CFG, $DB;
+	global $CFG, $DB;
 
 	$now = time();
 	$counter= 0;
@@ -369,10 +369,10 @@ function sumarios_process_to_external_file() {
 	fwrite($fp, $sql);
 
 	/*
-	--
-	-- Table structure for table `sumarios_export`
-	--
-	*/
+	 --
+	 -- Table structure for table `sumarios_export`
+	 --
+	 */
 	$sql = "CREATE TABLE IF NOT EXISTS `" .$CFG->sumarios_db_table . "` (
 						`id` int(11) NOT NULL AUTO_INCREMENT,
 						`course` bigint(10) unsigned DEFAULT NULL,
@@ -387,27 +387,27 @@ function sumarios_process_to_external_file() {
 	fwrite($fp, $sql);
 
 	// loop through all sumarios records
-  $instances = $DB->get_recordset('sumarios');
-  foreach ($instances as $instance) {
+	$instances = $DB->get_recordset('sumarios');
+	foreach ($instances as $instance) {
 
 		if ($instance->timeclass < $now &&
-				($instance->timecreated > $CFG->sumarios_last_export_time ||
-				 $instance->timemodified > $CFG->sumarios_last_export_time)) {
+		($instance->timecreated > $CFG->sumarios_last_export_time ||
+		$instance->timemodified > $CFG->sumarios_last_export_time)) {
 
-      $sql = "INSERT INTO '" .$CFG->sumarios_db_table . "' (name,texto,course,timeclass,timecreated,timemodified) " .
+			$sql = "INSERT INTO '" .$CFG->sumarios_db_table . "' (name,texto,course,timeclass,timecreated,timemodified) " .
 		 			   "VALUES ('" . $instance->name . "','" . $instance->texto . "'," . $instance->course . "," . 
-						 $instance->timeclass . "," . $instance->timecreated  . "," . $instance->timemodified .");\n";
+			$instance->timeclass . "," . $instance->timecreated  . "," . $instance->timemodified .");\n";
 			fwrite($fp, $sql);
 
 			$counter = $counter + 1;
 		}
-  }
-  $instances->close();
+	}
+	$instances->close();
 	mtrace(get_string('sumarios_cron_04','sumarios') . $counter . get_string('sumarios_cron_08','sumarios'));
 	fclose($fp);
 	$CFG->sumarios_last_export_time = $now;
 
-  return;
+	return;
 }
 
 /**
@@ -420,26 +420,26 @@ function sumarios_process_to_external_file() {
  **/
 function sumarios_cron () {
 
-    global $CFG;
-    
-		mtrace('');
-		mtrace(get_string('sumarios_cron_00','sumarios'));
-		
-		if($CFG->sumarios_file_export == 1 && is_writable ($CFG->sumarios_file_export_path)){
-		  if (sumarios_get_values_file()) sumarios_process_to_external_file();
-		} else {
-		  if (sumarios_get_values()) {
-				if (!sumarios_test_external_database()) {
-					mtrace(get_string('sumarios_cron_02','sumarios'));
-				} else {
-					sumarios_process_to_external_database();
-				}
+	global $CFG;
+
+	mtrace('');
+	mtrace(get_string('sumarios_cron_00','sumarios'));
+
+	if($CFG->sumarios_file_export == 1 && is_writable ($CFG->sumarios_file_export_path)){
+		if (sumarios_get_values_file()) sumarios_process_to_external_file();
+	} else {
+		if (sumarios_get_values()) {
+			if (!sumarios_test_external_database()) {
+				mtrace(get_string('sumarios_cron_02','sumarios'));
 			} else {
-					mtrace(get_string('sumarios_cron_03','sumarios'));
+				sumarios_process_to_external_database();
 			}
+		} else {
+			mtrace(get_string('sumarios_cron_03','sumarios'));
 		}
-		mtrace(get_string('sumarios_cron_01','sumarios'));
-    return true;
+	}
+	mtrace(get_string('sumarios_cron_01','sumarios'));
+	return true;
 }
 
 
@@ -456,7 +456,7 @@ function sumarios_cron () {
  * @return boolean|array false if no participants, array of objects otherwise
  */
 function sumarios_get_participants($sumariosid) {
-    return false;
+	return false;
 }
 
 /**
@@ -466,7 +466,7 @@ function sumarios_get_participants($sumariosid) {
  * @return array
  */
 function sumarios_get_extra_capabilities() {
-    return array();
+	return array();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -485,7 +485,7 @@ function sumarios_get_extra_capabilities() {
  * @return bool true if the scale is used by the given sumarios instance
  */
 function sumarios_scale_used($sumariosid, $scaleid) {
-    return false;
+	return false;
 }
 
 /**
@@ -497,7 +497,7 @@ function sumarios_scale_used($sumariosid, $scaleid) {
  * @return boolean true if the scale is used by any sumarios instance
  */
 function sumarios_scale_used_anywhere($scaleid) {
-    return false;
+	return false;
 }
 
 /**
@@ -509,7 +509,7 @@ function sumarios_scale_used_anywhere($scaleid) {
  * @return void
  */
 function sumarios_grade_item_update(stdClass $sumarios) {
-    return false;
+	return false;
 }
 
 /**
@@ -522,7 +522,7 @@ function sumarios_grade_item_update(stdClass $sumarios) {
  * @return void
  */
 function sumarios_update_grades(stdClass $sumarios, $userid = 0) {
-    return false;
+	return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -541,7 +541,7 @@ function sumarios_update_grades(stdClass $sumarios, $userid = 0) {
  * @return array of [(string)filearea] => (string)description
  */
 function sumarios_get_file_areas($course, $cm, $context) {
-    return array();
+	return array();
 }
 
 /**
@@ -556,15 +556,15 @@ function sumarios_get_file_areas($course, $cm, $context) {
  * @return void this should never return to the caller
  */
 function sumarios_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload) {
-    global $DB, $CFG;
+	global $DB, $CFG;
 
-    if ($context->contextlevel != CONTEXT_MODULE) {
-        send_file_not_found();
-    }
+	if ($context->contextlevel != CONTEXT_MODULE) {
+		send_file_not_found();
+	}
 
-    require_login($course, true, $cm);
+	require_login($course, true, $cm);
 
-    send_file_not_found();
+	send_file_not_found();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

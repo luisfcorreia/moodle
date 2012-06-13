@@ -48,41 +48,41 @@ $PAGE->set_context($coursecontext);
 echo $OUTPUT->header();
 
 if (! $sumarioss = get_all_instances_in_course('sumarios', $course)) {
-    notice(get_string('no	arioss', 'sumarios'), new moodle_url('/course/view.php', array('id' => $course->id)));
+	notice(get_string('no	arioss', 'sumarios'), new moodle_url('/course/view.php', array('id' => $course->id)));
 }
 
 if ($course->format == 'weeks') {
-    $table->head  = array(get_string('week'), get_string('name'));
-    $table->align = array('center', 'left');
+	$table->head  = array(get_string('week'), get_string('name'));
+	$table->align = array('center', 'left');
 } else if ($course->format == 'topics') {
-    $table->head  = array(get_string('topic'), get_string('name'));
-    $table->align = array('center', 'left', 'left', 'left');
+	$table->head  = array(get_string('topic'), get_string('name'));
+	$table->align = array('center', 'left', 'left', 'left');
 } else {
-    $table->head  = array(get_string('name'));
-    $table->align = array('left', 'left', 'left');
+	$table->head  = array(get_string('name'));
+	$table->align = array('left', 'left', 'left');
 }
 
 foreach ($sumarioss as $sumarios) {
-    if (!$sumarios->visible) {
-        $link = html_writer::link(
-            new moodle_url('/mod/sumarios.php', array('id' => $sumarios->coursemodule)),
-            format_string($sumarios->name, true),
-            array('class' => 'dimmed'));
-    } else {
-        $link = html_writer::link(
-            new moodle_url('/mod/sumarios.php', array('id' => $sumarios->coursemodule)),
-            format_string($sumarios->name, true));
-    }
+	if (!$sumarios->visible) {
+		$link = html_writer::link(
+		new moodle_url('/mod/sumarios.php', array('id' => $sumarios->coursemodule)),
+		format_string($sumarios->name, true),
+		array('class' => 'dimmed'));
+	} else {
+		$link = html_writer::link(
+		new moodle_url('/mod/sumarios.php', array('id' => $sumarios->coursemodule)),
+		format_string($sumarios->name, true));
+	}
 
-    $table->data[] = array($sumarios->sumario_texto, $link);
+	$table->data[] = array($sumarios->sumario_texto, $link);
 
 
 
-    if ($course->format == 'weeks' or $course->format == 'topics') {
-        $table->data[] = array($sumarios->section, $link);
-    } else {
-        $table->data[] = array($link);
-    }
+	if ($course->format == 'weeks' or $course->format == 'topics') {
+		$table->data[] = array($sumarios->section, $link);
+	} else {
+		$table->data[] = array($link);
+	}
 }
 
 echo $OUTPUT->heading(get_string('modulenameplural', 'sumarios'), 2);

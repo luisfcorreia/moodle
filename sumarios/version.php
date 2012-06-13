@@ -30,7 +30,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$module->version   = 2012060201;       
+$module->version   = 2012060201;
 $module->requires  = 2011000000;      // Requires this Moodle version
 $module->component = 'mod_sumarios'; // To check on upgrade, that module sits in correct place
 $module->cron      = 1;               // Period for cron to check this module (secs)
